@@ -1,7 +1,7 @@
 import requests # Make URL requests
 from bs4 import BeautifulSoup # Filter through fetched HTML-code
 
-# 
+
 def line_empty(line):
     return len(line.strip()) < 1
 
