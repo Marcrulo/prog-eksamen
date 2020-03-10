@@ -21,7 +21,6 @@ data = content.findAll("tr")
 city_dict = {}
 for d in data[1:]:
 	a = d.findAll('td')
-	city_dict['name'] = 
 	city_dict[a[1].text.strip()] = [a[0].text.strip(),a[2].text.strip(),a[3].text.strip()] #ID
 
 
