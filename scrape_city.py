@@ -9,7 +9,7 @@ URL = "http://www.tageo.com/index-e-da-cities-DK.htm"
 # http://www.tageo.com/index-e-da-cities-DK-step-4.htm
 
 # Get HTML as text
-page = requests.get(URL)
+'''page = requests.get(URL)'''
 
 # Create soup object, which makes it possible to filter the HTML 
 soup = BeautifulSoup(page.content, "html.parser")
