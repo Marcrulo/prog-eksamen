@@ -13,33 +13,62 @@
    crossorigin=""></script>
 
 <style type="text/css">
-  #mapid { height: 500px; }
+  #mapid { height: 800px; }
 </style>
 
 
-
+<!-- 
+https://stackoverflow.com/questions/37516184/getting-map-coordinates-from-leaflet-js
+-->
 
 <body>
 
   <div id="mapid"></div>
-
+  <div id="lat"></div>
+  <div id="lng"></div>
 
   <script>
     var mymap = L.map('mapid').setView([56.2103368, 11.8389378], 7.25);
     mymap.setMaxBounds(mymap.getBounds());
+    
     var OpenStreetMap_Mapnik = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(mymap);
 
 
-    var marker = L.marker([51.5, -0.09]).addTo(mymap);
+    var lat, lng;
 
-    var polygon = L.polygon([
-        [51.509, -0.08],
-        [51.503, -0.06],
-        [51.51, -0.047]
-    ]).addTo(mymap);
+    mymap.addEventListener('mousemove', function(ev) {
+       lat = ev.latlng.lat;
+       lng = ev.latlng.lng;
+       console.log(lat, lng);
+       document.getElementById('lat').innerHTML = lat;
+       document.getElementById('lng').innerHTML = lng;
+
+       
+    });
+
+    var circle = L.circle([55.68377, 12.3596],{
+        color: 'red',
+        fullColor: '#f03',
+        fillOpacity: 0.1,
+        radius: 50000.0
+      }).addTo(mymap);
+
+    var circle = L.circle([55.78377, 12.3596],{
+        color: 'red',
+        fullColor: '#f03',
+        fillOpacity: 0.1,
+        radius: 50000.0
+      }).addTo(mymap);
+
+    var circle = L.circle([56.3, 9.82],{
+        color: 'green',
+        fullColor: '#f03',
+        fillOpacity: 0.7,
+        radius: 50000.0
+      }).addTo(mymap);
 
   </script>
 
