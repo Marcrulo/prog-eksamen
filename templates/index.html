@@ -30,12 +30,12 @@ https://stackoverflow.com/questions/37516184/getting-map-coordinates-from-leafle
   -->
 
   <script>
-    var mymap = L.map('mapid').setView([56.2103368, 11.8389378], 7.25);
+    var mymap = L.map('mapid').setView([55.2103368, 11.8389378], 7.25);
     mymap.setMaxBounds(mymap.getBounds());
     
     var OpenStreetMap_Mapnik = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       // Set interval   minZoom < maxZoom
-      minZoom: 8,
+      minZoom: 7,
       maxZoom: 11,
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(mymap);
