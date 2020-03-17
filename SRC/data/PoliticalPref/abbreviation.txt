@@ -1,0 +1,11 @@
+O	Dansk Folkeparti
+B	Radikale Venstre
+C	Konservative
+F	Socialistisk Folkeparti
+I	Liberal Alliance
+OE	Enhedslisten
+AA	Alternativet
+N	Folkebevægelsen mod EU
+Q	Kristeligt Folkeparti
+A	Socialdemokratiet
+V	Venstre
