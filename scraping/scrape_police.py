@@ -2,52 +2,43 @@ import requests # Make URL requests
 import re
 from bs4 import BeautifulSoup # Filter through fetched HTML-code
 
-
 def line_empty(line):
     return len(line.strip()) < 1
 
-
-'''
-https://politi.dk/doegnrapporter
-?fromDate=2020/2/1
-&toDate=2020/2/29
-&newsType=D%C3%B8gnrapporter
-&page=1
-&district=Nordsjaellands-Politi
-'''
-
+# Search criteria
 fromDate = "2020/2/1" # Year/Month/Day
 toDate = "2020/2/29"  # Year/Month/Day
 URL = "https://politi.dk/doegnrapporter?fromDate={}&toDate={}&newsType=D%C3%B8gnrapporter&page={}&district=Nordsjaellands-Politi".format(fromDate,toDate,1)
 
-#print(URL)
-
+# Find pages based on search criteria
 frontPage = requests.get(URL)
 soup = BeautifulSoup(frontPage.content, "html.parser")
-
 ngCtrl = soup.find('section', {'ng-controller': 'newsListController'})
-#print(ngCtrl)
-
 urls = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*(),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', str(ngCtrl))
-for url in urls:
-	print(url)
-'''
-file = open("FRONTPAGE.html",'w',encoding="UTF-8")
-file.write(str(ngCtrl))
 
-links = soup.find_all("a", {"class": "newsResultLink"})
-'''
+# Save page content
+for url in urls:	
+	subPage = requests.get(url)
+	bs = BeautifulSoup(subPage.content, "html.parser")
+
+	# Filter/find div by class name. Returns entire tags
+	content = bs.find("div", {"class": "rich-text"})
+
+	# Strips the text from the tags
+	print(content.text.strip())
+
+# Extract relevant data from content
 
 
 
 
 
-'''
-linksAvailable = True
-page = 1
-while linksAvailable:
-	pass
-'''
+
+#linksAvailable = True
+#page = 1
+#while linksAvailable:
+#	pass
+
 
 
 

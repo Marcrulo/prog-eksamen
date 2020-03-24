@@ -1,3 +1,8 @@
+
+# Attempt to scrape coordinates of cities
+# We ended doing it manually, due to more precision and inclusion of smaller towns
+
+'''
 import requests # Make URL requests
 from bs4 import BeautifulSoup # Filter through fetched HTML-code
 import json
@@ -9,7 +14,7 @@ URL = "http://www.tageo.com/index-e-da-cities-DK.htm"
 # http://www.tageo.com/index-e-da-cities-DK-step-4.htm
 
 # Get HTML as text
-'''page = requests.get(URL)'''
+#page = requests.get(URL)
 
 # Create soup object, which makes it possible to filter the HTML 
 soup = BeautifulSoup(page.content, "html.parser")
@@ -25,14 +30,15 @@ for d in data[1:]:
 
 
 print(city_dict)
-'''
-city_dict = {
-	city_name = [id, latitude, longitude]	
-}
 
-'''
+#city_dict = {
+#	city_name = [id, latitude, longitude]	
+#}
+
+
 
 
 with open('cities.json', 'a') as json_file:
 	json.dump(city_dict, json_file)
 
+'''
