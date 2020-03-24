@@ -8,7 +8,8 @@ def line_empty(line):
 # Search criteria
 fromDate = "2020/2/1" # Year/Month/Day
 toDate = "2020/2/29"  # Year/Month/Day
-URL = "https://politi.dk/doegnrapporter?fromDate={}&toDate={}&newsType=D%C3%B8gnrapporter&page={}&district=Nordsjaellands-Politi".format(fromDate,toDate,1)
+page = 1 			  # Page
+URL = "https://politi.dk/doegnrapporter?fromDate={}&toDate={}&newsType=D%C3%B8gnrapporter&page={}&district=Nordsjaellands-Politi".format(fromDate,toDate,page)
 
 # Find pages based on search criteria
 frontPage = requests.get(URL)
@@ -20,32 +21,19 @@ urls = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*(),]|(?:%[0-9a-fA-F
 for url in urls:	
 	subPage = requests.get(url)
 	bs = BeautifulSoup(subPage.content, "html.parser")
+	content = bs.find("div", {"class": "rich-text"}) # Filter/find div by class name. Returns entire tags
+	#print(content.text.strip()) # Strips the text from the tags
 
-	# Filter/find div by class name. Returns entire tags
-	content = bs.find("div", {"class": "rich-text"})
+	
+	file = open("../page_content/tmpfile{}.txt".format("test"), "w", encoding="UTF-8")
 
-	# Strips the text from the tags
-	print(content.text.strip())
+	lines = content.text.strip().split('\n') # Seperate content section by newline
+	for line in lines:
+	    if not line_empty(line):
+	        file.write(line+'\n')
+	file.close()
 
 # Extract relevant data from content
-
-
-
-
-
-
-#linksAvailable = True
-#page = 1
-#while linksAvailable:
-#	pass
-
-
-
-
-
-
-
-
 
 
 
