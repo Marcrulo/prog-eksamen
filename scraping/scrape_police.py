@@ -8,7 +8,8 @@ def line_empty(line):
 # Search criteria
 fromDate = "2020/2/1" # Year/Month/Day
 toDate = "2020/2/29"  # Year/Month/Day
-page = 1 			  # Page
+page = 1 			  # Page ... pages are done manually due to risks of request limit
+
 URL = "https://politi.dk/doegnrapporter?fromDate={}&toDate={}&newsType=D%C3%B8gnrapporter&page={}&district=Nordsjaellands-Politi".format(fromDate,toDate,page)
 
 # Find pages based on search criteria
@@ -16,22 +17,26 @@ frontPage = requests.get(URL)
 soup = BeautifulSoup(frontPage.content, "html.parser")
 ngCtrl = soup.find('section', {'ng-controller': 'newsListController'})
 urls = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*(),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', str(ngCtrl))
+if len(urls) == 0:
+	print("End reached")
 
 # Save page content
 for url in urls:	
 	subPage = requests.get(url)
 	bs = BeautifulSoup(subPage.content, "html.parser")
-	content = bs.find("div", {"class": "rich-text"}) # Filter/find div by class name. Returns entire tags
-	#print(content.text.strip()) # Strips the text from the tags
+	title = bs.find("h1",{"class":"h1-police-bold dark-blue"}).text.strip()
+	content = bs.find("div", {"class": "rich-text"})
 
-	
-	file = open("../page_content/tmpfile{}.txt".format("test"), "w", encoding="UTF-8")
+	title_regex = re.findall(r'[0-9]+', title)
 
-	lines = content.text.strip().split('\n') # Seperate content section by newline
+	file = open("../page_content/{}-{}-{}.txt".format(title_regex[0],title_regex[1],title_regex[2]), "w", encoding="UTF-8")
+
+	lines = content.text.strip().split('\n') 
 	for line in lines:
-	    if not line_empty(line):
-	        file.write(line+'\n')
+	    file.write(line+'\n')
+
 	file.close()
+
 
 # Extract relevant data from content
 
