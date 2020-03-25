@@ -28,6 +28,9 @@ for url in urls:
 	content = bs.find("div", {"class": "rich-text"})
 
 	title_regex = re.findall(r'[0-9]+', title)
+	for i in range(len(title_regex)):
+		title_regex[i] = title_regex[i].lstrip('0')
+
 
 	file = open("../page_content/{}-{}-{}.txt".format(title_regex[0],title_regex[1],title_regex[2]), "w", encoding="UTF-8")
 
