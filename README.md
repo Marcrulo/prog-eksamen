@@ -6,3 +6,6 @@
 # 31/3 logbog
 1) Vi har indset, at clustering fungerer bedre end classification, med de data vi kender, og kan finde. Derfor vil vi ændre vores problembeskrivelse:
 > "***Vi vil prøve at forudse forbrydelser på forhånd, for at hjælpe politiet, ved at se mønstrer i begåede forbrydelser***"
+2) Forbedring af word counter
+3) Forberedelse til 'keyword-identifier' til ML-delen
+4) Påbegyndelse af K-means-clustering
