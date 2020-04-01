@@ -12,4 +12,5 @@
 
 # 1/4 logbog
 0) Vi har ikke lavet noget i dag, haha aprilsnar!
-1) Plan for brug af data (Det skal kædes sammen, der skal findes mønstre for ordene brugt i rapporter for forskellige typer kriminalitet)
+1) Da vi har gemt data om koordinater og forbrydelser i seperate filer, skal vi finde en måde at importere og redigere disse data, så de har den rigtige formatering til brug i vores algoritme.
+
