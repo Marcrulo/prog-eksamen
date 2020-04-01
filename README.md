@@ -13,4 +13,5 @@
 # 1/4 logbog
 0) Vi har ikke lavet noget i dag, haha aprilsnar!
 1) Da vi har gemt data om koordinater og forbrydelser i seperate filer, skal vi finde en måde at importere og redigere disse data, så de har den rigtige formatering til brug i vores algoritme.
-2) Fuldt fokus på k-means-clustering; både 2D og 3D
+2) Udfyld txt-filer med keywords, som er associerede med bestemte forbrydelser
+3) Fuldt fokus på k-means-clustering; både 2D og 3D
