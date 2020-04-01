@@ -9,7 +9,7 @@ def word_count():
 
 	for i in range(len(files)):
 		with open(files[i], encoding='utf8') as file:
-			data += file.read().replace("\n"," ")
+			data += file.read().replace("\n"," ").lower()
 		file.close()
 
 	words = data.split()
