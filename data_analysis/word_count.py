@@ -9,13 +9,15 @@ def word_count():
 
 	for i in range(len(files)):
 		with open(files[i], encoding='utf8') as file:
-			data += file.read().replace("\n"," ").lower()
+			data += file.read().replace("\n"," ")
 		file.close()
 
-	words = data.split()
 
+	words = data.lower().split()
+	
 	for word in words:  #Looper igennem ord i den splittede string
-		if word[-1] == '.' and word[-2].isnumeric() is False:
+		symbols = ['.',',',';',':','!','?'] #hvis der dukkker gentagelser af ord op i json, skal flere symboler evt tilføjes
+		if word[-1] in symbols and word[-2].isnumeric() is False:
 			word = word[:-1]
 
 		if word in countsDict:
@@ -30,7 +32,7 @@ def word_count():
 
 word_count()
 
-sorted_dict=sorted(countsDict.items(), key=lambda x: x[1])
-for item in sorted_dict:
-	print(item)
+#sorted_dict=sorted(countsDict.items(), key=lambda x: x[1])
+#for item in sorted_dict:
+	#print(item)
 
