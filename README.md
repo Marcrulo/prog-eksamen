@@ -9,3 +9,7 @@
 2) Forbedring af word counter
 3) Forberedelse til 'keyword-identifier' til ML-delen
 4) Påbegyndelse af K-means-clustering
+
+# 1/4 logbog
+0) Vi har ikke lavet noget i dag, haha aprilsnar!
+1) Plan for brug af data (Det skal kædes sammen, der skal findes mønstre for ordene brugt i rapporter for forskellige typer kriminalitet)
