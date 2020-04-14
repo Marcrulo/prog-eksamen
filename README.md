@@ -16,3 +16,8 @@
 2) Udfyld txt-filer med keywords, som er associerede med bestemte forbrydelser
 3) Fuldt fokus på k-means-clustering; både 2D og 3D
 4) Har fixet fejl i wordcounter, hvor ord, efterfulgt af punktum eller komma (og ligendne) er en del af selve ordet 
+
+# 14/4 logbog
+1) Scrape yderligere sider for mere detaljeret word counter
+2) Udfyld keywordlist
+3) Opdater word_counter.py for bedre effektiv
