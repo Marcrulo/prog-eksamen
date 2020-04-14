@@ -5,10 +5,10 @@ kørsel
 førerret
 hasarderet
 færdselslov
-Spritkørsel
-Spirituskørsel
-Spritbilist
-Spiritusbilist
+spritkørsel
+spirituskørsel
+spritbilist
+spiritusbilist
 narkobilist
 narkokørsel
 narkotikabilist
@@ -16,3 +16,4 @@ narkotikakørsel
 alkometer
 vanvidskør
 forudlykke
+frakendelse

@@ -8,4 +8,6 @@ indbrud
 indtræng
 gennemrod
 hæleri
+butikstyveri
+bilrude
 
