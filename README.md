@@ -22,3 +22,6 @@
 2) Opdater word_counter.py for bedre effektiv
 3) Ændret regler for forbrydelseskategorier
 4) Keywordlist er udfyldt
+
+# 15/5 logbog
+1) Lav liste/csv med forbrydelser, som vi kan matche med en bestemt kategori af forbrydelser, som tyveri og vold mv. (så vi kun kigger på de relevante forbrydelser)
