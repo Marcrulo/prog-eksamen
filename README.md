@@ -22,3 +22,4 @@
 2) Udfyld keywordlist
 3) Opdater word_counter.py for bedre effektiv
 4) Ændret regler for forbrydelseskategorier
+5) Keywordlis er udfyldt
