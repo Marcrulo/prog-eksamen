@@ -4,44 +4,66 @@
   <title>Police data scraper</title>
 </head>
 
+<!-- BOOTSTRAP -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+<!-- LEAFLET -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
    crossorigin=""/>
-
- <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
    crossorigin=""></script>
 
-<style type="text/css">
-  #mapid { height: 1000px; }
-</style>
-
-
-<!--
-
-Depending on the screen resolution, change:
-- 'setView' coordinates    55 - 57
-- div height               500-1000 px
-- minZoom                  7-8 
- 
--->
 
 <body>
+  
+  <div class="row">
+    <div class="col-3">
+      
 
-  <div id="mapid"></div>
-  <!--
-  <div id="lat"></div>
-  <div id="lng"></div>
-  -->
- 
+      <div id="lat">55.905367</div>
+      <div id="lng">12.3620975</div>
+
+
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Dropdown button
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </div>
+
+      <button type="button" class="btn btn-primary" onclick="addCircle()">Add</button>
+      <button type="button" class="btn btn-primary" onclick="clearCircles()">Clear</button>
+
+
+    </div>
+    
+
+    <div class="col" id="mapid" style="height: 1000px"></div>
+    
+  </div>
+
+    
+  
+  
+
   <script>
-    var mymap = L.map('mapid').setView([55.2103368, 11.8389378], 7.25);
+    var mymap = L.map('mapid').setView([55.905367, 12.3620975], 10);
     mymap.setMaxBounds(mymap.getBounds());
     
     var OpenStreetMap_Mapnik = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       // Set interval   minZoom < maxZoom
-      minZoom: 7,
-      maxZoom: 11,
+      minZoom: 10.5,
+      maxZoom: 13,
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(mymap);
 
@@ -51,35 +73,60 @@ Depending on the screen resolution, change:
     mymap.addEventListener('mousemove', function(ev) {
        lat = ev.latlng.lat;
        lng = ev.latlng.lng;
-       console.log(lat);
-       console.log(lng);
-       console.log(' ');
-       //document.getElementById('lat').innerHTML = lat;
-       //document.getElementById('lng').innerHTML = lng;
+       //console.log(lat);
+       //console.log(lng);
+       //console.log(' ');
+       document.getElementById('lat').innerHTML = lat;
+       document.getElementById('lng').innerHTML = lng;
 
        
     });
 
+    /*
     var circle = L.circle([55.68377, 12.3596],{
-        color: 'red',
+        color: 'green',
         fullColor: '#f03',
         fillOpacity: 0.1,
         radius: 50000.0
       }).addTo(mymap);
 
     var circle = L.circle([55.78377, 12.3596],{
-        color: 'red',
+        color: 'blue',
         fullColor: '#f03',
         fillOpacity: 0.1,
         radius: 50000.0
       }).addTo(mymap);
-
+    
     var circle = L.circle([56.3, 9.82],{
         color: 'green',
         fullColor: '#f03',
         fillOpacity: 0.7,
         radius: 50000.0
       }).addTo(mymap);
+    */
+
+
+
+    function clearCircles(){
+      var remove = false; // Dont delete background
+      mymap.eachLayer(function (layer) {
+        if(remove){
+          mymap.removeLayer(layer);
+        }
+        remove = true;
+      });     
+    }
+
+    function addCircle(){
+
+      L.circle([55.68378, 12.3596],{
+        color: 'red',
+        fullColor: '#f03',
+        fillOpacity: 0.1,
+        radius: 50000.0
+      }).addTo(mymap);
+
+    }
 
   </script>
 
