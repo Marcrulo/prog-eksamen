@@ -20,6 +20,7 @@
    crossorigin=""></script>
 
 
+
 <body>
   
   <div class="row">
@@ -43,7 +44,8 @@
 
       <button type="button" class="btn btn-primary" onclick="addCircle()">Add</button>
       <button type="button" class="btn btn-primary" onclick="clearCircles()">Clear</button>
-      
+        
+
     </div>
     
 
@@ -56,6 +58,7 @@
   
 
   <script>
+
     var mymap = L.map('mapid').setView([55.905367, 12.3620975], 10);
     mymap.setMaxBounds(mymap.getBounds());
     
@@ -78,8 +81,10 @@
        document.getElementById('lat').innerHTML = lat;
        document.getElementById('lng').innerHTML = lng;
 
-       
+
     });
+
+
 
     function clearCircles(){
       var remove = false; // Dont delete background
