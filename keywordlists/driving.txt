@@ -3,3 +3,16 @@ billist
 rat
 kørsel
 førerret
+hasarderet
+færdselslov
+Spritkørsel
+Spirituskørsel
+Spritbilist
+Spiritusbilist
+narkobilist
+narkokørsel
+narkotikabilist
+narkotikakørsel
+alkometer
+vanvidskør
+forudlykke
