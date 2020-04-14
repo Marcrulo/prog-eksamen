@@ -17,7 +17,7 @@ def word_count():
 	
 	for word in words:  #Looper igennem ord i den splittede string
 		symbols = ['.',',',';',':','!','?'] #hvis der dukkker gentagelser af ord op i json, skal flere symboler evt tilføjes
-		if word[-1] in symbols and word[-2].isnumeric() is False:
+		if len(word) > 2 and word[-1] in symbols and word[-2].isnumeric() is False:
 			word = word[:-1]
 
 		if word in countsDict:
