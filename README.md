@@ -28,3 +28,4 @@
 
 # 15/5 logbog
 1) Lav liste/csv med forbrydelser, som vi kan matche med en bestemt kategori af forbrydelser, som tyveri og vold mv. (så vi kun kigger på de relevante forbrydelser)
+2) Python script som vurderer, hvilket type kriminalitet, der er at gøre med, og derefter tilføjer den til tidligere nævnte liste/csv
