@@ -2,18 +2,16 @@ import csv
 import glob
 
 
-# Write to CSV file
 csvfile = open('crime.csv', "w", encoding='utf-8',newline="")
 writer = csv.writer(csvfile, delimiter=';', quotechar="'", quoting=csv.QUOTE_ALL)
 files = glob.glob("../page_content/*.txt")
 
-for file in files:
-	with open(file, encoding='utf8') as txtfile:
+for file in files: # Files in PAGE_CONTENT
+	with open(file, encoding='utf8') as txtfile: # %DAY% %MONTH% %YEAR%.txt
 		
-		a = txtfile.read().split('\n\n')
-		for i in range(len(a)):
+		a = txtfile.read().split('\n\n') # Split into seperate sections
+		for i in range(len(a)): # Loop through SECTIONS first time
 			
-		
 			points = {
 				'driving' : 0,
 				'drugs'   : 0,
@@ -25,14 +23,14 @@ for file in files:
 			}
 			section = a[i].lower().split()
 		
-			for sec in section:
+			for sec in section: # Normalising and data formatting
 				symbols = ['.',',',';',':','!','?']
 				if(len(sec)-1):  
 					if sec[-1] in symbols and sec[-2].isnumeric() is False:
 						sec = sec[:-1]
 			
 			
-			for word in section:  
+			for word in section: # Loop through SECTIONS second time to compare with keywords 
 				with open('../keywordlists/driving.txt', encoding='utf-8') as driving:					
 					for keyword in driving.read().split('\n'):
 						if word.startswith(keyword):
@@ -63,17 +61,8 @@ for file in files:
 						if word.startswith(keyword):
 							points['violence'] += 1
 				
-				
-
 			id = file.replace('../page_content\\','') + '#' + str(points['index'])
 			writer.writerow([id,points['driving'],points['drugs'],points['lethal'],points['other'],points['stealing'],points['violence']])			
-			
-			#print(points['driving'],points['drugs'],points['lethal'],points['other'],points['stealing'],points['violence'])
-
-		
-		
-
-
 
 	txtfile.close()
 
