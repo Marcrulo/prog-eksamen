@@ -29,7 +29,7 @@ for file in files: # Files in PAGE_CONTENT
 					if sec[-1] in symbols and sec[-2].isnumeric() is False:
 						sec = sec[:-1]
 			
-			
+						
 			for word in section: # Loop through SECTIONS second time to compare with keywords 
 				with open('../keywordlists/driving.txt', encoding='utf-8') as driving:					
 					for keyword in driving.read().split('\n'):
@@ -59,10 +59,18 @@ for file in files: # Files in PAGE_CONTENT
 				with open('../keywordlists/violence.txt', encoding='utf-8') as violence:
 					for keyword in violence.read().split('\n'):
 						if word.startswith(keyword):
-							points['violence'] += 1
-				
+							points['violence'] += 1	
+
+			### TODO ###
+			'''
+				1) Extract city name
+				2) Exclude sections with weird formatting
+				3) Specific tid/dato
+			'''
+
 			id = file.replace('../page_content\\','') + '#' + str(points['index'])
 			writer.writerow([id,points['driving'],points['drugs'],points['lethal'],points['other'],points['stealing'],points['violence']])			
+			print(points['driving'],points['drugs'],points['lethal'],points['other'],points['stealing'],points['violence'])
 
 	txtfile.close()
 
