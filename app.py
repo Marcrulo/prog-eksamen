@@ -33,10 +33,10 @@ class MLresult(db.Model):
         return '<User %r>' % self.username
 
 #db.drop_all()
-db.create_all()
+#db.create_all()
 db.session.add(Crimes(username="Fast", email="examples@example.com"))
 db.session.commit()
-
+print(Crimes.query.all())
 
 @app.route('/')
 def hello_world():
