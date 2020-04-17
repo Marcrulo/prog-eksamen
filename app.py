@@ -34,7 +34,7 @@ class MLresult(db.Model):
 
 #db.drop_all()
 db.create_all()
-db.session.add(User(username="Fast", email="examples@example.com"))
+db.session.add(Crimes(username="Fast", email="examples@example.com"))
 db.session.commit()
 
 
