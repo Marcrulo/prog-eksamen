@@ -2,7 +2,8 @@ from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///db.sqlite"
+#app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///db.sqlite"
+app.config['DATABASE_URL'] = "postgres://fpgdtkivkpmedt:cd7f60ed50a88ef2bb2caf1a7e24f00ce37959decf2dddbb90ab1654df9d3816@ec2-54-247-78-30.eu-west-1.compute.amazonaws.com:5432/dlfqf6ig6k8vb"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -32,9 +33,9 @@ class MLresult(db.Model):
         return '<User %r>' % self.username
 
 #db.drop_all()
-#db.create_all()
-#db.session.add(User(username="Fast", email="examples@example.com"))
-#db.session.commit()
+db.create_all()
+db.session.add(User(username="Fast", email="examples@example.com"))
+db.session.commit()
 
 
 @app.route('/')
