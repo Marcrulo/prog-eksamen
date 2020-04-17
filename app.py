@@ -32,8 +32,8 @@ class MLresult(db.Model):
     def __repr__(self):
         return '<User %r>' % self.username
 
-#db.drop_all()
-#db.create_all()
+db.drop_all()
+db.create_all()
 db.session.add(Crimes(username="Fast", email="examples@example.com"))
 db.session.commit()
 print(Crimes.query.all())
