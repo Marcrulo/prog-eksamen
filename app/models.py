@@ -8,7 +8,7 @@ class Crimes(db.Model):
     time = db.Column(db.String(120), unique=False, nullable=False)
 
     def __repr__(self):
-        return '<User %r>' % self.username
+        return 'Severity: {}; City: {}'.format(self.severity,self.city)
 
 class Cities(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -24,7 +24,7 @@ class Cities(db.Model):
     
 
     def __repr__(self):
-        return '<User %r>' % self.username      
+        return 'City:' + str(postnr)       
 
 class MLresult(db.Model):
     id = db.Column(db.Integer, primary_key=True)
