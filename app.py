@@ -10,33 +10,41 @@ db = SQLAlchemy(app)
 
 class Crimes(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), unique=False, nullable=False)
-    email = db.Column(db.String(120), unique=False, nullable=False)
+    severity = db.Column(db.Integer, unique=False, nullable=False)
+    city = db.Column(db.Integer, unique=False, nullable=False)
+	date = db.Column(db.String(120), unique=False, nullable=False)
+	time = db.Column(db.String(120), unique=False, nullable=False)
 
     def __repr__(self):
         return '<User %r>' % self.username
 
 class Cities(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), unique=False, nullable=False)
-    email = db.Column(db.String(120), unique=False, nullable=False)
+    
+    # Integer version of string names 
+    postnr = db.Column(db.Integer, unique=False, nullable=False)
+    kommune = db.Column(db.Integer, unique=False, nullable=False)
+
+    # Coordinates
+    latitude = db.Column(db.Float, unique=False, nullable=False)
+    longitude = db.Column(db.Float, unique=False, nullable=False)
+    
+    
 
     def __repr__(self):
         return '<User %r>' % self.username      
 
 class MLresult(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), unique=False, nullable=False)
-    email = db.Column(db.String(120), unique=False, nullable=False)
-
+    
     def __repr__(self):
-        return '<User %r>' % self.username
+        return '<User %r>' % self.id
 
-db.drop_all()
-db.create_all()
-db.session.add(Crimes(username="Fast", email="examples@example.com"))
+#db.drop_all()
+#db.create_all()
+db.session.add(Crimes(username="Nibba", email="examples@example.com"))
 db.session.commit()
-print(Crimes.query.all())
+#print(Crimes.query.all())
 
 @app.route('/')
 def hello_world():
