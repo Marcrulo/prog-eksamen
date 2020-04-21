@@ -29,3 +29,6 @@
 # 15/5 logbog
 1) Lav liste/csv med forbrydelser, som vi kan matche med en bestemt kategori af forbrydelser, som tyveri og vold mv. (så vi kun kigger på de relevante forbrydelser)
 2) Python script som vurderer, hvilket type kriminalitet, der er at gøre med, og derefter tilføjer den til tidligere nævnte liste/csv
+
+# 22/5 logbog
+1) Eksperimentering med database. Vi har kigget på SQLite i developmentforløbet, og ville have PostgreSQL i produktion, som man kan integrere gennem web-hosting siden, Heroku. Vi konkluderede dog, at da vi ikke ændre i databasen dynamisk, kan man lige så godt nøjes med en statisk fil.
