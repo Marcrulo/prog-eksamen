@@ -32,3 +32,4 @@
 
 # 22/4 logbog
 1) Eksperimentering med database. Vi har kigget på SQLite i developmentforløbet, og ville have PostgreSQL i produktion, som man kan integrere gennem web-hosting siden, Heroku. Vi konkluderede dog, at da vi ikke ændre i databasen dynamisk, kan man lige så godt nøjes med en statisk fil.
+
