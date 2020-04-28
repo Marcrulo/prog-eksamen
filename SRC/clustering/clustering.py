@@ -35,7 +35,7 @@ Data = {
 df = DataFrame(Data,columns=['x','y'])
   
 # sætter de første 'cluster'-centre (som senere bliver ændret)
-kmeans = KMeans(n_clusters=1)
+kmeans = KMeans(n_clusters=2)
 
 # komputerer k-means clustering ved at rykke rundt på centre og cluster-områder
 kmeans.fit(df)
