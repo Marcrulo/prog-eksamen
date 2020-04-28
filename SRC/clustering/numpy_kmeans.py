@@ -18,7 +18,9 @@ Data = {
 df = DataFrame(Data,columns=['xx','yy'])
 print(df.dtypes)
 df['xx'] = df['xx'].astype(int)
+df['yy'] = df['yy'].astype(int)
 print(df.dtypes)
+print(df['xx'])
 
 
 kmeans = KMeans(n_clusters=2).fit(df)
