@@ -35,3 +35,6 @@
 
 # 27/4 logbog
 1) Vi lavede planer om fremgangsmåde på tavlen
+
+# 28/4 logbog
+1) Vi har eksperimenteret med KMeans clustering
