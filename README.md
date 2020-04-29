@@ -38,3 +38,7 @@
 
 # 28/4 logbog
 1) Vi har eksperimenteret med KMeans clustering
+
+# 29/4 logbog
+1) Løst problemer med indlæsning af .csv til pandas dataframe
+2) Problemer med doublequotes i Dataframe der gjorde konvertering til integers problemeatisk.
