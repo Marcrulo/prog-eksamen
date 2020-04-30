@@ -5,12 +5,11 @@ import numpy as np
 
 
 categories = ["date","driving","drugs","lethal","other","stealing","violence"]
-
 df = read_csv("../../csv/crime.csv", sep=";", names=categories)
-
 for item in categories[1:]:
 	df[item] = df[item].str.replace('\'','').astype(int)
 
+print(df)
 
 kmeans = KMeans(n_clusters=2).fit(df[["driving","drugs"]])
 centroids = kmeans.cluster_centers_
