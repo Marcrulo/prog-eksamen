@@ -42,3 +42,8 @@
 # 29/4 logbog
 1) Løst problemer med indlæsning af .csv til pandas dataframe
 2) Problemer med doublequotes i Dataframe der gjorde konvertering til integers problemeatisk.
+
+# 30/4 logbog
+1) Fik både 2D og 3D clustering til at virke
+2) Yderligere planlægning af metoder, og vægtning af forbrydelsestyper
+
