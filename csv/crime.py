@@ -70,7 +70,7 @@ for file in files: # Files in PAGE_CONTENT
 
 			id = file.replace('../page_content\\','') + '#' + str(points['index'])
 			writer.writerow([id,points['driving'],points['drugs'],points['lethal'],points['other'],points['stealing'],points['violence']])			
-			print(points['driving'],points['drugs'],points['lethal'],points['other'],points['stealing'],points['violence'])
+			#print(points['driving'],points['drugs'],points['lethal'],points['other'],points['stealing'],points['violence'])
 
 	txtfile.close()
 

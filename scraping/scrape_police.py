@@ -6,12 +6,12 @@ def line_empty(line):
     return len(line.strip()) < 1
 
 # Search criteria
-fromDate = "2019/12/1" # Year/Month/Day
+fromDate = "2019/4/12" # Year/Month/Day
 toDate = "2020/4/12"   # Year/Month/Day
-page = 10 			   # Page ... pages are done manually due to risks of request limit
+page = 27 			   # Page ... pages are done manually due to risks of request limit
 
 URL = "https://politi.dk/doegnrapporter?fromDate={}&toDate={}&newsType=D%C3%B8gnrapporter&page={}&district=Nordsjaellands-Politi".format(fromDate,toDate,page)
-
+print(URL)
 
 # Find pages based on search criteria
 frontPage = requests.get(URL)

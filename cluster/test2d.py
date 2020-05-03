@@ -13,14 +13,16 @@ for item in categories[1:]:
 for i in range(len(df['date'])):
 	for month in months:
 		if month in str(df['date'][i]):
-			df['date'][i] = months.index(month)+1 
+			df['date'][i] = 30*(months.index(month)+1) 
 
-print(df['date'])
+#print(df['date'])
 
-kmeans = KMeans(n_clusters=2).fit(df[["driving","date"]])
+kmeans = KMeans(n_clusters=1).fit(df[["date","driving"]])
 centroids = kmeans.cluster_centers_
-print(centroids)
+#print(centroids)
 
-plt.scatter(df['driving'], df['date'], c= kmeans.labels_.astype(float), s=50, alpha=0.5)
-plt.scatter(centroids[:, 0], centroids[:, 1], c='red', s=50)
+plt.scatter(df['date'], df['stealing'], s=50, alpha=0.5)#,c= kmeans.labels_.astype(float))
+#plt.scatter(centroids[:, 0], centroids[:, 1], c='red', s=50)
+plt.xlabel("Date")
+plt.ylabel("Lethal")
 plt.show()
