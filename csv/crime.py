@@ -1,5 +1,6 @@
 import csv
 import glob
+import json
 
 
 csvfile = open('crime.csv', "w", encoding='utf-8',newline="")
@@ -66,11 +67,18 @@ for file in files: # Files in PAGE_CONTENT
 				1) Extract city name
 				2) Exclude sections with weird formatting
 				3) Specific tid/dato
+				4) New column which contains each parameter times its severity
 			'''
 
 			id = file.replace('../page_content\\','') + '#' + str(points['index'])
-			writer.writerow([id,points['driving'],points['drugs'],points['lethal'],points['other'],points['stealing'],points['violence']])			
-			#print(points['driving'],points['drugs'],points['lethal'],points['other'],points['stealing'],points['violence'])
+
+			with open('../cluster/weight.json', 'r', encoding='utf8') as weight:
+				
+				#pointSum = points['driving']*weight['driving']
+				#print(pointSum)
+
+				#writer.writerow([id,points['driving'],points['drugs'],points['lethal'],points['other'],points['stealing'],points['violence']])			
+				#print(points['driving'],points['drugs'],points['lethal'],points['other'],points['stealing'],points['violence'])
 
 	txtfile.close()
 

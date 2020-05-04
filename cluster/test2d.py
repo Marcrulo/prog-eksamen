@@ -17,11 +17,11 @@ for i in range(len(df['date'])):
 
 #print(df['date'])
 
-kmeans = KMeans(n_clusters=1).fit(df[["date","driving"]])
+kmeans = KMeans(n_clusters=1).fit(df[["date","violence"]])
 centroids = kmeans.cluster_centers_
 #print(centroids)
 
-plt.scatter(df['date'], df['stealing'], s=50, alpha=0.5)#,c= kmeans.labels_.astype(float))
+plt.scatter(df['date'], df['violence'], s=50, alpha=0.5)#,c= kmeans.labels_.astype(float))
 #plt.scatter(centroids[:, 0], centroids[:, 1], c='red', s=50)
 plt.xlabel("Date")
 plt.ylabel("Lethal")

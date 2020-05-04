@@ -8,7 +8,7 @@ def line_empty(line):
 # Search criteria
 fromDate = "2019/4/12" # Year/Month/Day
 toDate = "2020/4/12"   # Year/Month/Day
-page = 27 			   # Page ... pages are done manually due to risks of request limit
+page = 11 			   # Page ... pages are done manually due to risks of request limit
 
 URL = "https://politi.dk/doegnrapporter?fromDate={}&toDate={}&newsType=D%C3%B8gnrapporter&page={}&district=Nordsjaellands-Politi".format(fromDate,toDate,page)
 print(URL)
