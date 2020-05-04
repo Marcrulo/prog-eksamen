@@ -73,12 +73,19 @@ for file in files: # Files in PAGE_CONTENT
 			id = file.replace('../page_content\\','') + '#' + str(points['index'])
 
 			with open('../cluster/weight.json', 'r', encoding='utf8') as weight:
-				
-				#pointSum = points['driving']*weight['driving']
+				wDict = json.load(weight)
+				categoryList = ['driving','drugs','lethal','other','stealing','violence']
+				pList = [points['driving'],points['drugs'],points['lethal'],points['other'],points['stealing'],points['violence']]
+				pointSum = 0
+				for i in range(len(pList)):
+					if pList[i]:
+						pointSum += wDict[categoryList[i]]
+
+				#pointSum = points['driving']*wDict['driving'] + points['drugs']*wDict['drugs'] + points['lethal']*wDict['lethal'] + points['other']*wDict['other'] + points['stealing']*wDict['stealing'] + points['violence']*wDict['violence']
 				#print(pointSum)
 
-				#writer.writerow([id,points['driving'],points['drugs'],points['lethal'],points['other'],points['stealing'],points['violence']])			
-				#print(points['driving'],points['drugs'],points['lethal'],points['other'],points['stealing'],points['violence'])
+				writer.writerow([id,points['driving'],points['drugs'],points['lethal'],points['other'],points['stealing'],points['violence'],pointSum])			
+				print(points['driving'],points['drugs'],points['lethal'],points['other'],points['stealing'],points['violence'],pointSum)
 
 	txtfile.close()
 
