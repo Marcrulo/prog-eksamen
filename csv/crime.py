@@ -30,7 +30,8 @@ for file in files: # Files in PAGE_CONTENT
 					if sec[-1] in symbols and sec[-2].isnumeric() is False:
 						sec = sec[:-1]
 			
-						
+			
+				
 			for word in section: # Loop through SECTIONS second time to compare with keywords 
 				with open('../keywordlists/driving.txt', encoding='utf-8') as driving:					
 					for keyword in driving.read().split('\n'):

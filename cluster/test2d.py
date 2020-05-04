@@ -21,7 +21,6 @@ for i in range(len(df['date'])):
 
 kmeans = KMeans(n_clusters=12).fit(df[["date","severity"]])
 centroids = kmeans.cluster_centers_
-print(centroids)
 
 ticks = []
 for i in range(1,13):
