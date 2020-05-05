@@ -23,7 +23,7 @@ for file in files: # Files in PAGE_CONTENT
 				'index'   : i,
 			}
 			section = a[i].lower().split()
-		
+
 			for sec in section: # Normalising and data formatting
 				symbols = ['.',',',';',':','!','?']
 				if(len(sec)-1):  
@@ -33,66 +33,47 @@ for file in files: # Files in PAGE_CONTENT
 			
 				
 			for word in section: # Loop through SECTIONS second time to compare with keywords 
-				with open('../keywordlists/driving.txt', encoding='utf-8') as driving:	
-					isBreak = False				
+				with open('../keywordlists/driving.txt', encoding='utf-8') as driving:		
 					for keyword in driving.read().split('\n'):
 						if word.startswith(keyword):
 							points['driving'] += 1
-							isBreak = True
-							break
-					if isBreak:
-						break
+							
 
 				
 				with open('../keywordlists/drugs.txt', encoding='utf-8') as drugs:
-					isBreak = False
 					for keyword in drugs.read().split('\n'):
 						if word.startswith(keyword):
 							points['drugs'] += 1
-							isBreak = True
-							break
-					if isBreak:
-						break
+							
 
 				with open('../keywordlists/lethal.txt', encoding='utf-8') as lethal:
-					isBreak = False
 					for keyword in lethal.read().split('\n'):
 						if word.startswith(keyword):
 							points['lethal'] += 1
-							isBreak = True
-							break
-					if isBreak:
-						break
+							
 
 				with open('../keywordlists/other.txt', encoding='utf-8') as other:
-					isBreak = False
 					for keyword in other.read().split('\n'):
 						if word.startswith(keyword):
 							points['other'] += 1
-							isBreak = True
-							break
-					if isBreak:
-						break
+							
 
 				with open('../keywordlists/stealing.txt', encoding='utf-8') as stealing:
-					isBreak = False
 					for keyword in stealing.read().split('\n'):
 						if word.startswith(keyword):
 							points['stealing'] += 1
-							isBreak = True
-							break
-					if isBreak:
-						break
+							
 
 				with open('../keywordlists/violence.txt', encoding='utf-8') as violence:
-					isBreak = False
 					for keyword in violence.read().split('\n'):
 						if word.startswith(keyword):
 							points['violence'] += 1
-							isBreak = True
-							break	
-					if isBreak:
-						break
+				
+				with open('../keywordlists/city.txt', encoding='utf-8') as city:
+					for keyword in city.read().split('\n'):
+						if word.startswith(keyword):
+							crimeCity = keyword
+							break
 
 			### TODO ###
 			'''
@@ -116,8 +97,8 @@ for file in files: # Files in PAGE_CONTENT
 				#pointSum = points['driving']*wDict['driving'] + points['drugs']*wDict['drugs'] + points['lethal']*wDict['lethal'] + points['other']*wDict['other'] + points['stealing']*wDict['stealing'] + points['violence']*wDict['violence']
 				#print(pointSum)
 
-				writer.writerow([id,points['driving'],points['drugs'],points['lethal'],points['other'],points['stealing'],points['violence'],pointSum])			
-				#print(points['driving'],points['drugs'],points['lethal'],points['other'],points['stealing'],points['violence'],pointSum)
+				writer.writerow([id,points['driving'],points['drugs'],points['lethal'],points['other'],points['stealing'],points['violence'],pointSum,crimeCity])			
+				print(points['driving'],points['drugs'],points['lethal'],points['other'],points['stealing'],points['violence'],pointSum,crimeCity)
 
 	txtfile.close()
 

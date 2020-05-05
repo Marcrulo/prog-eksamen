@@ -1,6 +1,9 @@
 ballerup
 smørum
+kongens
+lyngby
 gentofte
+virum
 holte
 nærum
 dyssegård
