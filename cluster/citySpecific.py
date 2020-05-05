@@ -7,7 +7,7 @@ months = ['januar', 'februar', 'marts','april','maj','juni','juli','august','sep
 categories = ["date","driving","drugs","lethal","other","stealing","violence","severity","city"]
 
 monthAverage = 100000000000#30.4368499
-cityName = 'allerød'
+cityName = 'hillerød'
 
 df = read_csv("../csv/crime.csv", sep=";", names=categories)
 for item in categories[1:-1]:
