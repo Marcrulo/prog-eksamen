@@ -47,3 +47,9 @@
 1) Fik både 2D og 3D clustering til at virke
 2) Yderligere planlægning af metoder, og vægtning af forbrydelsestyper
 
+# 5/5 logbog
+1) Formatering af data, så det er tilegnet bedst til plotting og pandas osv.
+2) Forbedring af plotting (inkl. plotting af specifikke byer)
+3) Tilføj by-navne til scraping
+4) Tilføj population af byer til csv fil
+5) Planlægning af plotting på map (heatmap)
