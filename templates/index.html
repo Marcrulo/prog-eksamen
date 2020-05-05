@@ -10,7 +10,6 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
-
 <!-- LEAFLET -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
@@ -39,15 +38,14 @@
           Parameters
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="#">Parameter 1</a>
-          <a class="dropdown-item" href="#">Parameter 2</a>
-          <a class="dropdown-item" href="#">Parameter 3</a>
+          <button class="dropdown-item" onclick="addNibba(3)">Parameter 1</button>
+          <button class="dropdown-item" onclick="addNibba(7)">Parameter 2</button>
+          <button class="dropdown-item" onclick="addNibba(10)">Parameter 3</button>
         </div>
       </div>
 
       <button type="button" class="btn btn-primary" onclick="addCircle()">Add</button>
       <button type="button" class="btn btn-primary" onclick="clearCircles()">Clear</button>
-      
 
 
     </div>
@@ -89,12 +87,15 @@
 
     });
 
-    let name = "Boi";
-    $.ajax({
-      url: "/api/" + name + '/'
-    }).done(function(res){
-      alert(res.name);
-    })
+    
+
+    function addNibba(arg){
+      $.getJSON('https://gist.githubusercontent.com/Marcrulo/8c1736ef635580dedeb2ae4d460a64ac/raw/ed308ac42a18448ad3913276b867a4601e7d5cdb/dummy.json',function(data){
+        console.log(data);
+        console.log(data.lists[0].id);
+
+      });
+    }
 
     function clearCircles(){
       var remove = false; // Dont delete background
