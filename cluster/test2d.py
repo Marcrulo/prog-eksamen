@@ -17,6 +17,11 @@ for i in range(len(df['date'])):
 		if month in str(df['date'][i]):
 			df.loc[i,'date']= monthAverage*(months.index(month)+1)
 
+for i in range(len(df['city'])):
+	if df.loc[i,'city'] == 'hillerød':
+		print(df.loc[i,'city'])
+
+
 #print(df['date'])
 
 kmeans = KMeans(n_clusters=12).fit(df[["date","severity"]])
