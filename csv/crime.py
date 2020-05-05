@@ -33,35 +33,66 @@ for file in files: # Files in PAGE_CONTENT
 			
 				
 			for word in section: # Loop through SECTIONS second time to compare with keywords 
-				with open('../keywordlists/driving.txt', encoding='utf-8') as driving:					
+				with open('../keywordlists/driving.txt', encoding='utf-8') as driving:	
+					isBreak = False				
 					for keyword in driving.read().split('\n'):
 						if word.startswith(keyword):
 							points['driving'] += 1
+							isBreak = True
+							break
+					if isBreak:
+						break
+
 				
 				with open('../keywordlists/drugs.txt', encoding='utf-8') as drugs:
+					isBreak = False
 					for keyword in drugs.read().split('\n'):
 						if word.startswith(keyword):
 							points['drugs'] += 1
+							isBreak = True
+							break
+					if isBreak:
+						break
 
 				with open('../keywordlists/lethal.txt', encoding='utf-8') as lethal:
+					isBreak = False
 					for keyword in lethal.read().split('\n'):
 						if word.startswith(keyword):
 							points['lethal'] += 1
+							isBreak = True
+							break
+					if isBreak:
+						break
 
 				with open('../keywordlists/other.txt', encoding='utf-8') as other:
+					isBreak = False
 					for keyword in other.read().split('\n'):
 						if word.startswith(keyword):
 							points['other'] += 1
+							isBreak = True
+							break
+					if isBreak:
+						break
 
 				with open('../keywordlists/stealing.txt', encoding='utf-8') as stealing:
+					isBreak = False
 					for keyword in stealing.read().split('\n'):
 						if word.startswith(keyword):
 							points['stealing'] += 1
+							isBreak = True
+							break
+					if isBreak:
+						break
 
 				with open('../keywordlists/violence.txt', encoding='utf-8') as violence:
+					isBreak = False
 					for keyword in violence.read().split('\n'):
 						if word.startswith(keyword):
-							points['violence'] += 1	
+							points['violence'] += 1
+							isBreak = True
+							break	
+					if isBreak:
+						break
 
 			### TODO ###
 			'''
@@ -86,7 +117,7 @@ for file in files: # Files in PAGE_CONTENT
 				#print(pointSum)
 
 				writer.writerow([id,points['driving'],points['drugs'],points['lethal'],points['other'],points['stealing'],points['violence'],pointSum])			
-				print(points['driving'],points['drugs'],points['lethal'],points['other'],points['stealing'],points['violence'],pointSum)
+				#print(points['driving'],points['drugs'],points['lethal'],points['other'],points['stealing'],points['violence'],pointSum)
 
 	txtfile.close()
 
