@@ -15,7 +15,7 @@ for item in categories[1:]:
 for i in range(len(df['date'])):
 	for month in months:
 		if month in str(df['date'][i]):
-			df['date'][i] = monthAverage*(months.index(month)+1) 
+			df.loc[i,'date']= monthAverage*(months.index(month)+1)
 
 #print(df['date'])
 
