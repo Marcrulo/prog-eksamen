@@ -7,7 +7,7 @@ months = ['januar', 'februar', 'marts','april','maj','juni','juli','august','sep
 categories = ["date","driving","drugs","lethal","other","stealing","violence","severity","city"]
 
 monthAverage = 100000000000#30.4368499
-cityName = 'helsinge'
+cityName = 'hillerød'
 
 df = read_csv("../csv/crime.csv", sep=";", names=categories)
 for item in categories[1:-1]:
@@ -50,4 +50,7 @@ plt.scatter(df['date'], df['severity'], s=50, alpha=0.5, c= kmeans.labels_.astyp
 plt.scatter(centroids[:, 0], centroids[:, 1], c='red', s=50)
 plt.xlabel("Date")
 plt.ylabel("Severity")
+
+plt.savefig("../img/"+cityName+".png",)
 plt.show()
+plt.close()#  Den her behøver vi måske ikke nødvendigvis, det er bare pænest
