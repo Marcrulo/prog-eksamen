@@ -16,8 +16,8 @@ cityNames = ['Ballerup','Smørum','Lyngby','Gentofte','Virum','Holte','Nærum','
 			'Allerød','Birkerød','Fredensborg','Kvistgård','Værløse','Farum','Lynge','Slangerup',
 			'Frederikssund','Jægerspris','Ølstykke','Stenløse','Veksø','Skibby']
 
+for z in range(len(cityNames)):
 
-for z in range(len(cityNames)): #i lavede vist noget lort med de andre for loops inden i dette, så nu hedder variablen altså z
 	df = read_csv("../csv/crime.csv", sep=";", names=categories)
 	for item in categories[1:-1]:
 		df[item] = df[item].str.replace('\'','').astype(int)
@@ -27,19 +27,21 @@ for z in range(len(cityNames)): #i lavede vist noget lort med de andre for loops
 			if month in str(df['date'][i]):
 				df.loc[i,'date']= monthAverage*(months.index(month)+1)
 
-	#print(df['date'])
+#print(df['date'])
 
-	#df = df[df['city']=='hillerød']
+#df = df[df['city']=='hillerød']
 
+# DET HER ER NYT
+
+	print(cityNames[z])
 	df = DataFrame(df.loc[df['city'].str.contains(cityNames[z],case=False)])
-	#print(df)
-	#print(df[["date","severity"]])
-	print(cityNames[z],str(z+1)+"/"+str(len(cityNames)))
-
+	print(df)
 	clus = 12
 	if df['city'].count() < 12:
 		clus = df['city'].count()
-
+	
+	print(clus, df['city'].count())
+	
 	kmeans = KMeans(n_clusters=clus).fit(df[["date","severity"]])
 	centroids = kmeans.cluster_centers_
 
@@ -50,6 +52,7 @@ for z in range(len(cityNames)): #i lavede vist noget lort med de andre for loops
 
 	#print(average)
 
+
 	ticks = []
 	for i in range(1,13):
 		ticks.append(monthAverage*i)
@@ -58,7 +61,7 @@ for z in range(len(cityNames)): #i lavede vist noget lort med de andre for loops
 	plt.figure()
 	plt.axhline(average,0,10000000,color='purple')
 	plt.xticks(ticks, labels,rotation=20)
-	#plt.show()
+#plt.show()
 
 	plt.title(label=cityNames[z].capitalize())
 	plt.scatter(df['date'], df['severity'], s=50, alpha=0.5, c= kmeans.labels_.astype(float))
@@ -66,6 +69,6 @@ for z in range(len(cityNames)): #i lavede vist noget lort med de andre for loops
 	plt.xlabel("Date")
 	plt.ylabel("Severity")
 
-	plt.savefig("../img/"+cityNames[z]+"_"+str(clus)+".png",)
+	plt.savefig("../img/"+cityNames[z]+".png",)
 	#plt.show()
 	plt.close()#  Den her behøver vi måske ikke nødvendigvis, det er bare pænest

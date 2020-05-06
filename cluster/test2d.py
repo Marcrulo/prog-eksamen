@@ -4,23 +4,18 @@ from sklearn.cluster import KMeans
 import numpy as np
 
 months = ['januar', 'februar', 'marts','april','maj','juni','juli','august','september','oktober','november','december']
-categories = ["date","driving","drugs","lethal","other","stealing","violence","severity","city"]
+categories = ["date","driving","drugs","lethal","other","stealing","violence","severity"]
 
 monthAverage = 30.4368499
 
 df = read_csv("../csv/crime.csv", sep=";", names=categories)
-for item in categories[1:-1]:
+for item in categories[1:]:
 	df[item] = df[item].str.replace('\'','').astype(int)
 
 for i in range(len(df['date'])):
 	for month in months:
 		if month in str(df['date'][i]):
-			df.loc[i,'date']= monthAverage*(months.index(month)+1)
-
-for i in range(len(df['city'])):
-	if df.loc[i,'city'] == 'hillerød':
-		print(df.loc[i,'city'])
-
+			df['date'][i] = monthAverage*(months.index(month)+1) 
 
 #print(df['date'])
 
