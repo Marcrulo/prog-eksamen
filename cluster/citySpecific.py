@@ -1,20 +1,26 @@
+# -*- coding: utf-8 -*-
+
 from pandas import DataFrame, read_csv, to_numeric
 import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 import numpy as np
+import json
 
 months = ['januar', 'februar', 'marts','april','maj','juni','juli','august','september','oktober','november','december']
 categories = ["date","driving","drugs","lethal","other","stealing","violence","severity","city"]
 
 monthAverage = 100000000000#30.4368499
 #DET HER ER NYT
-cityNames = ['Ballerup','Smørum','Lyngby','Gentofte','Virum','Holte','Nærum','Dyssegård','Bagsværd',
+cityNames = ['Ballerup','Gentofte','Lyngby','Smørum','Virum','Holte','Nærum','Dyssegård','Bagsværd',
 			'Hellerup','Charlottenlund','Klampenborg','Skodsborg','Vedbæk','Rungsted','Hørsholm',
 			'Kokkedal','Nivå','Helsingør','Humlebæk','Espergærde','Snekkersten','Tikøb','Hornbæk',
 			'Dronningmølle','Ålsgårde','Hellebæk','Helsinge','Vejby','Tisvildeleje','Græsted','Gilleleje',
 			'Frederiksværk','Ølsted','Skævinge','Gørløse','Liseleje','Melby','Hundested','Hillerød',
 			'Allerød','Birkerød','Fredensborg','Kvistgård','Værløse','Farum','Lynge','Slangerup',
 			'Frederikssund','Jægerspris','Ølstykke','Stenløse','Veksø','Skibby']
+
+with open('../csv/cities.json',encoding='utf-8') as f:
+	data = json.load(f)
 
 for z in range(len(cityNames)):
 
@@ -35,12 +41,12 @@ for z in range(len(cityNames)):
 
 	print(cityNames[z])
 	df = DataFrame(df.loc[df['city'].str.contains(cityNames[z],case=False)])
-	print(df)
+	#print(df)
 	clus = 12
 	if df['city'].count() < 12:
 		clus = df['city'].count()
 	
-	print(clus, df['city'].count())
+	#print(clus, df['city'].count())
 	
 	kmeans = KMeans(n_clusters=clus).fit(df[["date","severity"]])
 	centroids = kmeans.cluster_centers_
@@ -50,8 +56,15 @@ for z in range(len(cityNames)):
 		averageList.append(item[1])
 	average = sum(averageList)/12
 
-	#print(average)
+	
+	
+	a = data[cityNames[z].lower()] 
+	a.append(average)
+	data[cityNames[z]] = a    
 
+	with open('../csv/cities.json', 'w',encoding='utf-8') as f:
+		json.dump(data,f)
+		f.close()
 
 	ticks = []
 	for i in range(1,13):
@@ -61,7 +74,7 @@ for z in range(len(cityNames)):
 	plt.figure()
 	plt.axhline(average,0,10000000,color='purple')
 	plt.xticks(ticks, labels,rotation=20)
-#plt.show()
+	#plt.show()
 
 	plt.title(label=cityNames[z].capitalize())
 	plt.scatter(df['date'], df['severity'], s=50, alpha=0.5, c= kmeans.labels_.astype(float))
@@ -72,3 +85,4 @@ for z in range(len(cityNames)):
 	plt.savefig("../img/"+cityNames[z]+".png",)
 	#plt.show()
 	plt.close()#  Den her behøver vi måske ikke nødvendigvis, det er bare pænest
+
