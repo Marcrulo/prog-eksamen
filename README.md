@@ -53,3 +53,9 @@
 3) Tilføj by-navne til scraping
 4) Tilføj population af byer til csv fil
 5) Planlægning af plotting på map (heatmap)
+
+# 6/5 logbog
+1) Flowchart(-ish)
+2) Bedre interaktion mellem hjemmeside og "database" (gemmer grafer i drev, og hoster json-filer som gists)
+3) Bedre dataformat (csv -> json)
+4) Planlægning for plot på kort
