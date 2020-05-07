@@ -53,7 +53,7 @@ for z in range(len(cityNames)):
 	a.append(average)
 	#categories 1-6 [.."driving","drugs","lethal","other","stealing","violence"..]
 	
-	df = df.reset_index(drop=True)
+	df = df.reset_index()
 	with open('../cluster/weight.json', 'r', encoding='utf8') as weight:
 		wDict = json.load(weight)
 		for y in range(1,7):
