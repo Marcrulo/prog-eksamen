@@ -30,6 +30,11 @@
     
 
 
+
+
+
+
+
 <body>
   
   <div class="row">
@@ -41,7 +46,7 @@
 
       <br>
       <p><b>Search city</b></p>
-      <input list="browsers" name="browser">
+      <input list="browsers" name="browser" id="inputText">
       <datalist id="browsers"></datalist>
       <button class="btn btn-info" id="pickCity" onclick="chooseCity()">Submit</button>
       <br>
@@ -154,8 +159,7 @@
     }
 
     /*GOOGLE CHART*/
-    google.charts.load('current', {'packages':['corechart']});
-    google.charts.setOnLoadCallback(drawChart);
+    
 
 
     /*SET CIRCLES BY CATEGORIES*/
@@ -280,10 +284,11 @@
       layerGroupAll.clearLayers();
     }
 
-
-    /*CITY SPECIFIC DATA*/
-    var minimized = false;
     function chooseCity(){
+      var name = document.getElementsByName('browser')[0].value;
+      
+
+
       /*RESIZE MAP*/
       if (!minimized) {
         document.getElementById("middle").className = "col-4";
@@ -296,6 +301,13 @@
         minimized = false;
       }
 
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+    }
+
+    /*CITY SPECIFIC DATA*/
+    var minimized = false;
+    function drawChart(){
       var data = google.visualization.arrayToDataTable([
         ['Month', 'Severity'],
         [ 'Jan',      12],
@@ -313,7 +325,7 @@
       ]);
 
       var options = {
-        title: "Title",
+        title: name,
         hAxis: {title: 'Age', minValue: 0, maxValue: 15},
         vAxis: {title: 'Weight', minValue: 0, maxValue: 15},
         legend: 'none'
