@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 import numpy as np
 import json
+from csv_to_json import csv_json
 
 months = ['januar', 'februar', 'marts','april','maj','juni','juli','august','september','oktober','november','december']
 categories = ["date","driving","drugs","lethal","other","stealing","violence","severity","city"]
@@ -19,6 +20,7 @@ cityNames = ['Ballerup','Gentofte','Lyngby','Smørum','Virum','Holte','Nærum','
 			'Allerød','Birkerød','Fredensborg','Kvistgård','Værløse','Farum','Lynge','Slangerup',
 			'Frederikssund','Jægerspris','Ølstykke','Stenløse','Veksø','Skibby']
 
+csv_json()
 with open('../csv/cities.json',encoding='utf-8') as f:
 	data = json.load(f)
 
@@ -50,6 +52,8 @@ for z in range(len(cityNames)):
 	
 	a = data[cityNames[z].lower()] 
 	a.append(average)
+	imageLink = open('../csv/imgLink.txt', 'r').readlines()
+	a.append(imageLink[z].strip())
 	data[cityNames[z]] = a    
 
 	with open('../csv/cities.json', 'w',encoding='utf-8') as f:
