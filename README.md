@@ -59,3 +59,6 @@
 2) Bedre interaktion mellem hjemmeside og "database" (gemmer grafer i drev, og hoster json-filer som gists)
 3) Bedre dataformat (csv -> json)
 4) Planlægning for plot på kort
+
+# 7/5 logbog
+Produkt er færdigt (vi fik lavet MEGET i dag)
