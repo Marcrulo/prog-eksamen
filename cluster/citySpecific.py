@@ -33,12 +33,8 @@ for z in range(len(cityNames)):
 			if month in str(df['date'][i]):
 				df.loc[i,'date']= monthAverage*(months.index(month)+1)
 
-
-
-	print(cityNames[z])
 	df = DataFrame(df.loc[df['city'].str.contains(cityNames[z],case=False)])
 	print(cityNames[z],str(z+1)+"/"+str(len(cityNames)))
-	#print(df)
 	clus = 12
 	if df['city'].count() < 12:
 		clus = df['city'].count()
@@ -51,8 +47,6 @@ for z in range(len(cityNames)):
 	for item in centroids:
 		averageList.append(item[1])
 	average = sum(averageList)/12
-
-	
 	
 	a = data[cityNames[z].lower()] 
 	a.append(average)
