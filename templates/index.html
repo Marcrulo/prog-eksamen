@@ -25,6 +25,10 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
+
+
+
+
 <body>
   
   <div class="row">
@@ -35,21 +39,31 @@
       <div id="lng">12.3620975</div>
 
 
-      <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Parameters
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <button class="dropdown-item" onclick="addNibba('drugs')">Parameter 1</button>
-          <button class="dropdown-item" onclick="addNibba('driving')">Parameter 2</button>
-          <button class="dropdown-item" onclick="addNibba('lethal')">Parameter 3</button>
-          <button class="dropdown-item" onclick="addNibba('violence')">Parameter 4</button>
-          <button class="dropdown-item" onclick="addNibba('stealing')">Parameter 5</button>
-          <button class="dropdown-item" onclick="addNibba('other')">Parameter 6</button>
-          <button class="dropdown-item" onclick="addNibba('all')">Parameter 7</button>
-
+      
+      <form>
+        <div class="radio">
+          <label><input type="radio" name="optradio" onclick="addNibba('drugs')">Option 1</label>
         </div>
-      </div>
+        <div class="radio">
+          <label><input type="radio" name="optradio" onclick="addNibba('driving')">Option 1</label>
+        </div>
+        <div class="radio">
+          <label><input type="radio" name="optradio" onclick="addNibba('lethal')">Option 1</label>
+        </div>
+        <div class="radio">
+          <label><input type="radio" name="optradio" onclick="addNibba('violence')">Option 1</label>
+        </div>
+        <div class="radio">
+          <label><input type="radio" name="optradio" onclick="addNibba('stealing')">Option 1</label>
+        </div>
+        <div class="radio">
+          <label><input type="radio" name="optradio" onclick="addNibba('other')">Option 1</label>
+        </div>
+        <div class="radio">
+          <label><input type="radio" name="optradio" onclick="addNibba('all')">Option 1</label>
+        </div>  
+      </form>
+
 
       <button type="button" class="btn btn-primary" onclick="addCircle()">Add</button>
       <button type="button" class="btn btn-primary" onclick="clearCircles()">Clear</button>
@@ -103,8 +117,8 @@
        lat = ev.latlng.lat;
        lng = ev.latlng.lng;
 
-       document.getElementById('lat').innerHTML = lat;
-       document.getElementById('lng').innerHTML = lng;
+       //document.getElementById('lat').innerHTML = lat;
+       //document.getElementById('lng').innerHTML = lng;
     });
     /////////////////////////////////////////////////////////////////
     var cities = []; 
