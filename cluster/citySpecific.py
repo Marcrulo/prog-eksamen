@@ -39,8 +39,7 @@ for z in range(len(cityNames)):
 	print(cityNames[z],str(z+1)+"/"+str(len(cityNames)))
 	clus = 12
 	if df['city'].count() < 12:
-		clus = df['city'].count()
-	
+		clus = df['city'].count()		
 	
 	kmeans = KMeans(n_clusters=clus).fit(df[["date","severity"]])
 	centroids = kmeans.cluster_centers_
@@ -52,6 +51,19 @@ for z in range(len(cityNames)):
 	
 	a = data[cityNames[z].lower()] 
 	a.append(average)
+	#categories 1-6 [.."driving","drugs","lethal","other","stealing","violence"..]
+	
+	df = df.reset_index(drop=True)
+	with open('../cluster/weight.json', 'r', encoding='utf8') as weight:
+		wDict = json.load(weight)
+		for y in range(1,7):
+			pSum = 0
+			for x in range(len(df[categories[y]])):
+				if df.at[x,categories[y]]:
+					pSum+=1
+			pSum *= wDict[categories[y]]
+			a.append(pSum)
+
 	imageLink = open('../csv/imgLink.txt', 'r').readlines()
 	a.append(imageLink[z].strip())
 	data[cityNames[z]] = a    
@@ -75,6 +87,6 @@ for z in range(len(cityNames)):
 	plt.xlabel("Date")
 	plt.ylabel("Severity")
 
-	plt.savefig("../img/"+cityNames[z]+"_"+str(clus)+".png")
+	#plt.savefig("../img/"+cityNames[z]+"_"+str(clus)+".png")
 	plt.close()
 

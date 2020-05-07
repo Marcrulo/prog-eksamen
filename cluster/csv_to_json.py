@@ -17,7 +17,7 @@ def csv_json():
 	with open ("../csv/cities.json","w", encoding='utf8') as out:
 		json.dump(outputDict,out, ensure_ascii=False)
 
-	print(outputDict)
+	#print(outputDict)
 
 if __name__ == '__main__':
 	csv_json()
