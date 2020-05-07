@@ -18,15 +18,17 @@
    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
    crossorigin=""></script>
 
-<!-- AJAX-->
+<!-- AJAX -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
 <body>
   
   <div class="row">
-    <div class="col-3">
+    <div class="col-3" id="main">
       
 
       <div id="lat">55.905367</div>
@@ -38,26 +40,35 @@
           Parameters
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <button class="dropdown-item" onclick="addNibba(3)">Parameter 1</button>
-          <button class="dropdown-item" onclick="addNibba(7)">Parameter 2</button>
-          <button class="dropdown-item" onclick="addNibba(10)">Parameter 3</button>
+          <button class="dropdown-item" onclick="addNibba('drugs')">Parameter 1</button>
+          <button class="dropdown-item" onclick="addNibba('driving')">Parameter 2</button>
+          <button class="dropdown-item" onclick="addNibba('lethal')">Parameter 3</button>
+          <button class="dropdown-item" onclick="addNibba('violence')">Parameter 4</button>
+          <button class="dropdown-item" onclick="addNibba('stealing')">Parameter 5</button>
+          <button class="dropdown-item" onclick="addNibba('other')">Parameter 6</button>
+          <button class="dropdown-item" onclick="addNibba('all')">Parameter 7</button>
+
         </div>
       </div>
 
       <button type="button" class="btn btn-primary" onclick="addCircle()">Add</button>
       <button type="button" class="btn btn-primary" onclick="clearCircles()">Clear</button>
-      <img src="">
+      <img id="CityData">
 
       <input list="browsers" name="browser">
       <datalist id="browsers"></datalist>
 
       
       <p id="cityShow">#</p>
+      <button class="btn btn-primary" id="showImg" onclick="updateImg()">Submit</button>
 
 
     </div>
       
   
+    <div class="col-1">
+      <button class="fa fa-bars" style="margin-left: 75%" onclick="changeMapSize()"></button>
+    </div>
     <div class="col" id="mapid" style="height: 1000px"></div>
     
   </div>
@@ -67,7 +78,12 @@
   
 
   <script>
-    
+    var cityLat;
+    var cityLng;
+    var citySize;
+    var citySev;
+    var strCitySev;
+    var cityLink;
 
     /////////////////////////////////////////////////////////////////
     var mymap = L.map('mapid').setView([55.805367, 12.3620975], 10);
@@ -114,9 +130,26 @@
       });
 
     
+    ///////////////////////////////////////////////////////////////////
+    function updateImg(){
+      //document.getElementById('CityData').src = cityLink;
+    }
 
     ///////////////////////////////////////////////////////////////////
-    function addNibba(arg){
+    var minimized = false;
+    function changeMapSize(){
+      if (!minimized) {
+        document.getElementById("main").className = "col-5";
+        minimized = true;
+      }
+      else{
+        document.getElementById("main").className = "col-3";
+        minimized = false;
+      }
+    }
+
+    ///////////////////////////////////////////////////////////////////
+    function addNibba(crimeKey){
       /*
       var remove = false; // Dont delete background
       mymap.eachLayer(function (layer) {
@@ -126,25 +159,38 @@
         remove = true;
       });
       */
+      let category = {
+        'drugs': 'blue',
+        'driving' : 'orange',
+        'lethal': 'black',
+        'violence': 'red',
+        'stealing': 'white',
+        'other': 'green',
+        'all': 'purple'
+      };
 
-      $.getJSON('https://gist.githubusercontent.com/Marcrulo/9b287fde728d4271714103aa09f3cd2e/raw/73637abeb4e15b34800f6b12fc48794e04ec4bf6/gistfile1.txt',function(data){
+      
+
+      $.getJSON('https://gist.githubusercontent.com/Marcrulo/9b287fde728d4271714103aa09f3cd2e/raw/bd40a2ae264e114edd940e23af5d3851b5e86466/cities.json',function(data){
         for (var key in data){
           if (data.hasOwnProperty(key)){
-            let cityLat = data[key][0];
-            let cityLng = data[key][1];
-            let citySize = data[key][2];
-            let citySev = data[key][3];
-            let strCitySev = "Severity: " + citySev.toFixed(2).toString();
+            cityLat = data[key][0];
+            cityLng = data[key][1];
+            citySize = data[key][2];
+            citySev = data[key][3];
+            strCitySev = "Severity: " + citySev.toFixed(2).toString();
+            cityLink = data[key][4];
+
 
             L.circle([cityLat, cityLng],{
-              color: 'red',       // Kategori
-              fullColor: '#f03',  // ^
+              color: category[crimeKey],       // Kategori
               fillOpacity: 0.06*citySev,   // Styrke/severity
               radius: 1000+(citySize/20),       // Størrelse/mængde
 
             }).bindTooltip(strCitySev).addTo(mymap);
           }
-        }   
+        }  
+
       });
     }
     ////////////////////////////////////////////////////////////////////
@@ -157,7 +203,7 @@
         remove = true;
       });
 
-      $.getJSON('https://gist.githubusercontent.com/Marcrulo/9b287fde728d4271714103aa09f3cd2e/raw/73637abeb4e15b34800f6b12fc48794e04ec4bf6/gistfile1.txt',function(data){
+      $.getJSON('https://gist.githubusercontent.com/Marcrulo/9b287fde728d4271714103aa09f3cd2e/raw/bd40a2ae264e114edd940e23af5d3851b5e86466/cities.json',function(data){
         for (var key in data){
           if (data.hasOwnProperty(key)){
             let cityLat = data[key][0];

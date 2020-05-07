@@ -8,7 +8,7 @@ import json
 from csv_to_json import csv_json
 
 months = ['januar', 'februar', 'marts','april','maj','juni','juli','august','september','oktober','november','december']
-categories = ["date","driving","drugs","lethal","other","stealing","violence","severity","city"]
+categories = ["date","driving","drugs","lethal","other","stealing","violence","severity","sevDriving","sevLethal","sevOther","sevDriving","sevStealing","sevViolence","city"]
 
 monthAverage = 100000000000#30.4368499
 
