@@ -66,13 +66,13 @@
   
 
   <script>
-
-    var mymap = L.map('mapid').setView([55.905367, 12.3620975], 10);
+    /////////////////////////////////////////////////////////////////
+    var mymap = L.map('mapid').setView([55.805367, 12.3620975], 10);
     mymap.setMaxBounds(mymap.getBounds());
     
     var OpenStreetMap_Mapnik = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       // Set interval   minZoom < maxZoom
-      minZoom: 10.5,
+      minZoom: 10,
       maxZoom: 13,
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(mymap);
@@ -83,34 +83,43 @@
     mymap.addEventListener('mousemove', function(ev) {
        lat = ev.latlng.lat;
        lng = ev.latlng.lng;
-       //console.log(lat);
-       //console.log(lng);
-       //console.log(' ');
+
        document.getElementById('lat').innerHTML = lat;
        document.getElementById('lng').innerHTML = lng;
-
-
     });
+    /////////////////////////////////////////////////////////////////    
+    $.getJSON('https://gist.githubusercontent.com/Marcrulo/9b287fde728d4271714103aa09f3cd2e/raw/97d1151b0c3d104e0fbf0ae0b04d42db80f37e5e/cities.json',function(data){
+        for (var key in data){
+          if (data.hasOwnProperty(key)){
+            let cityLat = data[key][0];
+            let cityLng = data[key][1];
 
-    
-
-    function addNibba(arg){
-      $.getJSON('https://gist.githubusercontent.com/Marcrulo/8c1736ef635580dedeb2ae4d460a64ac/raw/ed308ac42a18448ad3913276b867a4601e7d5cdb/dummy.json',function(data){
-        console.log(data);
-        console.log(data.lists[0].id);
-
+            var markers[];
+            markers.push(new L.Marker([cityLat, cityLng],{title:key.charAt(0).toUpperCase()+key.slice(1),opacity:0.2}));
+            marker.addTo(mymap);
+          }
+        }   
       });
+    ///////////////////////////////////////////////////////////////////
+    function addNibba(arg){
+      $.getJSON('https://gist.githubusercontent.com/Marcrulo/9b287fde728d4271714103aa09f3cd2e/raw/97d1151b0c3d104e0fbf0ae0b04d42db80f37e5e/cities.json',function(data){
+        for (var key in data){
+          if (data.hasOwnProperty(key)){
+            let cityLat = data[key][0];
+            let cityLng = data[key][1];
+            let citySize = data[key][2];
 
-      L.circle([55.68378, 12.3596],{
-        color: 'red',
-        fullColor: '#f03',
-        fillOpacity: 0.1*arg,
-        radius: 50000.0
-      }).addTo(mymap);
-
-
+            L.circle([cityLat, cityLng],{
+              color: 'red',       // Kategori
+              fullColor: '#f03',  // ^
+              fillOpacity: 0.1,   // Styrke/severity
+              radius: 1000+(citySize/25)       // Størrelse/mængde
+            }).addTo(mymap);
+          }
+        }   
+      });
     }
-
+    ////////////////////////////////////////////////////////////////////
     function clearCircles(){
       var remove = false; // Dont delete background
       mymap.eachLayer(function (layer) {
@@ -118,9 +127,22 @@
           mymap.removeLayer(layer);
         }
         remove = true;
+      });
+
+      $.getJSON('https://gist.githubusercontent.com/Marcrulo/9b287fde728d4271714103aa09f3cd2e/raw/73637abeb4e15b34800f6b12fc48794e04ec4bf6/gistfile1.txt',function(data){
+        for (var key in data){
+          if (data.hasOwnProperty(key)){
+            let cityLat = data[key][0];
+            let cityLng = data[key][1];
+
+            var marker = new L.Marker([cityLat, cityLng],{title:key.charAt(0).toUpperCase()+key.slice(1)});
+            marker.addTo(mymap);
+          }
+        }   
+
       });     
     }
-
+    ////////////////////////////////////////////////////////////////////////
     function addCircle(){
 
       L.circle([55.68378, 12.3596],{
@@ -132,7 +154,7 @@
 
     }
 
-
+    //////////////////////////////////////////////////////////////////////////
 
 
   </script>

@@ -10,7 +10,7 @@ months = ['januar', 'februar', 'marts','april','maj','juni','juli','august','sep
 categories = ["date","driving","drugs","lethal","other","stealing","violence","severity","city"]
 
 monthAverage = 100000000000#30.4368499
-#DET HER ER NYT
+
 cityNames = ['Ballerup','Gentofte','Lyngby','Smørum','Virum','Holte','Nærum','Dyssegård','Bagsværd',
 			'Hellerup','Charlottenlund','Klampenborg','Skodsborg','Vedbæk','Rungsted','Hørsholm',
 			'Kokkedal','Nivå','Helsingør','Humlebæk','Espergærde','Snekkersten','Tikøb','Hornbæk',
@@ -33,20 +33,16 @@ for z in range(len(cityNames)):
 			if month in str(df['date'][i]):
 				df.loc[i,'date']= monthAverage*(months.index(month)+1)
 
-#print(df['date'])
 
-#df = df[df['city']=='hillerød']
-
-# DET HER ER NYT
 
 	print(cityNames[z])
 	df = DataFrame(df.loc[df['city'].str.contains(cityNames[z],case=False)])
+	print(cityNames[z],str(z+1)+"/"+str(len(cityNames)))
 	#print(df)
 	clus = 12
 	if df['city'].count() < 12:
 		clus = df['city'].count()
 	
-	#print(clus, df['city'].count())
 	
 	kmeans = KMeans(n_clusters=clus).fit(df[["date","severity"]])
 	centroids = kmeans.cluster_centers_
@@ -74,7 +70,6 @@ for z in range(len(cityNames)):
 	plt.figure()
 	plt.axhline(average,0,10000000,color='purple')
 	plt.xticks(ticks, labels,rotation=20)
-	#plt.show()
 
 	plt.title(label=cityNames[z].capitalize())
 	plt.scatter(df['date'], df['severity'], s=50, alpha=0.5, c= kmeans.labels_.astype(float))
@@ -82,7 +77,6 @@ for z in range(len(cityNames)):
 	plt.xlabel("Date")
 	plt.ylabel("Severity")
 
-	plt.savefig("../img/"+cityNames[z]+".png",)
-	#plt.show()
-	plt.close()#  Den her behøver vi måske ikke nødvendigvis, det er bare pænest
+	plt.savefig("../img/"+cityNames[z]+"_"+str(clus)+".png")
+	plt.close()
 
