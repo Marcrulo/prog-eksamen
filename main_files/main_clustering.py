@@ -92,7 +92,6 @@ for z in range(len(cityNames)):
 	a.append(imageLink[z].strip())
 	data[cityNames[z].lower()] = a
 
-	centroids = np.sort(centroids, axis=0)
 	y_values = [0,0,0,0,0,0,0,0,0,0,0,0]
 	for v in range(int(centroids.size/2)):
 		y_values[int(round(centroids[v,0]/monthAverage))-1] = round(centroids[v,1],2)
@@ -103,5 +102,5 @@ for z in range(len(cityNames)):
 		json.dump(data,f)
 		f.close()
 
-	#plotGraph()
+	plotGraph()
 
