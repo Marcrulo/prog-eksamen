@@ -171,7 +171,7 @@
 
     /*GET CITY DATA*/
     var xhReq = new XMLHttpRequest();
-    xhReq.open("GET", 'https://gist.githubusercontent.com/Marcrulo/9b287fde728d4271714103aa09f3cd2e/raw/ff534b27e406d26e72e902c0a89eea8f8dfb1c1c/cities.json', false);
+    xhReq.open("GET", 'https://gist.githubusercontent.com/Marcrulo/9b287fde728d4271714103aa09f3cd2e/raw/d71fefbf010769ebd4c2dd43c2e9bb67e8263471/cities.json', false);
     xhReq.send(null);
     var jsonObject = JSON.parse(xhReq.responseText);
 
@@ -378,65 +378,69 @@
     function chooseCity(){
       name = document.getElementsByName('browser')[0].value;
 
-      /*RESIZE MAP*/
-      document.getElementById("middle").className = "col-4";
-      document.getElementById("middle").style.visibility = "visible";
+      if(name.toLowerCase() in jsonObject){
+        /*RESIZE MAP*/
+        document.getElementById("middle").className = "col-4";
+        document.getElementById("middle").style.visibility = "visible";
 
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
-      mymap.flyTo([jsonObject[name.toLowerCase()][0], +jsonObject[name.toLowerCase()][1] + 0.03], 13, {
-        animate: true,
-        duration: 1.5
-      });
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+        mymap.flyTo([jsonObject[name.toLowerCase()][0], +jsonObject[name.toLowerCase()][1] + 0.03], 13, {
+          animate: true,
+          duration: 1.5
+        });
 
-      document.getElementById('cityname').innerHTML = name;
-      var lc = name.toLowerCase();
-      document.getElementById('severity').innerHTML = jsonObject[lc][3].toFixed(2);
-      document.getElementById('drugs').innerHTML = jsonObject[lc][4].toFixed(2);
-      document.getElementById('driving').innerHTML = jsonObject[lc][5].toFixed(2);
-      document.getElementById('lethal').innerHTML = jsonObject[lc][6].toFixed(2);
-      document.getElementById('violence').innerHTML = jsonObject[lc][7].toFixed(2);
-      document.getElementById('stealing').innerHTML = jsonObject[lc][8].toFixed(2);
-      document.getElementById('other').innerHTML = jsonObject[lc][9].toFixed(2);
-      document.getElementById('population').innerHTML = jsonObject[lc][2];
-      document.getElementById('imagelink').innerHTML = "Link to graph";jsonObject[lc][10];
-      document.getElementById('imagelink').href = jsonObject[lc][10];
-      document.getElementById('coordinates').innerHTML = '(' + jsonObject[lc][0] + ' ; ' + jsonObject[lc][1] + ')';
+        document.getElementById('cityname').innerHTML = name;
+        var lc = name.toLowerCase();
+        document.getElementById('severity').innerHTML = jsonObject[lc][3].toFixed(2);
+        document.getElementById('drugs').innerHTML = jsonObject[lc][4].toFixed(2);
+        document.getElementById('driving').innerHTML = jsonObject[lc][5].toFixed(2);
+        document.getElementById('lethal').innerHTML = jsonObject[lc][6].toFixed(2);
+        document.getElementById('violence').innerHTML = jsonObject[lc][7].toFixed(2);
+        document.getElementById('stealing').innerHTML = jsonObject[lc][8].toFixed(2);
+        document.getElementById('other').innerHTML = jsonObject[lc][9].toFixed(2);
+        document.getElementById('population').innerHTML = jsonObject[lc][2];
+        document.getElementById('imagelink').innerHTML = "Link to graph";jsonObject[lc][10];
+        document.getElementById('imagelink').href = jsonObject[lc][10];
+        document.getElementById('coordinates').innerHTML = '(' + jsonObject[lc][0] + ' ; ' + jsonObject[lc][1] + ')';
 
-    }
+      }
 
-    /*CITY SPECIFIC DATA*/
-    function drawChart(){
-      var b = jsonObject[name.toLowerCase()][11];
-      var data = google.visualization.arrayToDataTable([
-        ['Month', 'Severity'],
-        [ 'Jan',      b[0]],
-        [ 'Feb',      b[1]],
-        [ 'Mar',     b[2]],
-        [ 'Apr',      b[3]],
-        [ 'May',      b[4]],
-        [ 'Jun',    b[5]],
-        [ 'Jul',    b[6]],
-        [ 'Aug',    b[7]],
-        [ 'Sep',    b[8]],
-        [ 'Oct',    b[9]],
-        [ 'Nov',    b[10]],
-        [ 'Dec',    b[11]],
-      ]);
+      /*CITY SPECIFIC DATA*/
+      function drawChart(){
+        var b = jsonObject[name.toLowerCase()][11];
+        var data = google.visualization.arrayToDataTable([
+          ['Month', 'Severity'],
+          [ 'Jan',      b[0]],
+          [ 'Feb',      b[1]],
+          [ 'Mar',     b[2]],
+          [ 'Apr',      b[3]],
+          [ 'May',      b[4]],
+          [ 'Jun',    b[5]],
+          [ 'Jul',    b[6]],
+          [ 'Aug',    b[7]],
+          [ 'Sep',    b[8]],
+          [ 'Oct',    b[9]],
+          [ 'Nov',    b[10]],
+          [ 'Dec',    b[11]],
+        ]);
 
-      var options = {
-        title: name,
-        hAxis: {title: 'Month', minValue: 0, maxValue: 15},
-        vAxis: {title: 'Severity', minValue: 0, maxValue: 15},
-        legend: 'none',
-        width: 600,
-        height: 400,
-        chartArea: {width: '80%', height: '80%'},
-      };
+        var options = {
+          title: name,
+          hAxis: {title: 'Month', minValue: 0, maxValue: 15},
+          vAxis: {title: 'Severity', minValue: 0, maxValue: 15},
+          legend: 'none',
+          width: 600,
+          height: 400,
+          chartArea: {width: '80%', height: '80%'},
+        };
 
-      var chart = new google.visualization.ScatterChart(document.getElementById('chart_div'));
+        var chart = new google.visualization.ScatterChart(document.getElementById('chart_div'));
 
-      chart.draw(data, options);
+        chart.draw(data, options);
+      }
+
+      
 
 
       
