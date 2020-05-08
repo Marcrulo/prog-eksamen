@@ -4,13 +4,13 @@
   <title>Police data scraper</title>
 </head>
 
-<!-- BOOTSTRAP -->
+<!-- BOOTSTRAP (css&js-library) -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
-<!-- LEAFLET -->
+<!-- LEAFLET (map-library) -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
    crossorigin=""/>
@@ -18,28 +18,17 @@
    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
    crossorigin=""></script>
 
-<!-- AJAX -->
+<!-- JQuery (JS funktionalitet) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-<!-- Add icon library -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-
-<!-- Google Charts -->
+<!-- Google Charts (Dynamiske grafer) -->
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     
-
-
-
-
-
-
 
 <body>
   
   <div class="row">
     <div class="col-3" id="main" style="margin-top: 30px; margin-left: 50px">
-      
 
       <div id="lat">Latitude: &nbsp;&nbsp;&nbsp;55.905367</div>
       <div id="lng">Longitude: 12.362097</div>
@@ -146,7 +135,7 @@
   
 
   <script>
-    /*MAP OBJECT*/
+    /*KORT(MAP) OBJEKT*/
     var mymap = L.map('mapid').setView([55.805367, 12.3620975], 10);
     mymap.setMaxBounds(mymap.getBounds());
 
@@ -157,7 +146,7 @@
     }).addTo(mymap);
 
 
-    /*COORDINATES*/
+    /*KOORDINATER*/
     var lat, lng;
 
     mymap.addEventListener('mousemove', function(ev) {
@@ -168,31 +157,28 @@
        document.getElementById('lng').innerHTML = "Longitude: " + lng.toFixed(6);
     });
 
-
-    /*GET CITY DATA*/
+    /*HENT DATA FRA JSON (GIST)*/
     var xhReq = new XMLHttpRequest();
     xhReq.open("GET", 'https://gist.githubusercontent.com/Marcrulo/9b287fde728d4271714103aa09f3cd2e/raw/d71fefbf010769ebd4c2dd43c2e9bb67e8263471/cities.json', false);
     xhReq.send(null);
     var jsonObject = JSON.parse(xhReq.responseText);
 
-    /*CREATE AUTOCOMPLETE INPUT*/
+    /*LAV AUTOCOMPLETE INPUT*/
     for(var key in jsonObject){
       $("#browsers").append($("<option>").attr('value', key.charAt(0).toUpperCase()+key.slice(1)));
     }
 
-    /*TOGGLE MARKERS*/
+    /*SLÅ MARKØRER TIL OG FRA*/
     var layerGroupMarker = L.layerGroup().addTo(mymap);
     var toggleOn = false; 
     function toggleMarker(){
       if (!toggleOn){
         for (var key in jsonObject) {
-          if (jsonObject.hasOwnProperty(key)){
-            let cityLat = jsonObject[key][0];
-            let cityLng = jsonObject[key][1];
+          let cityLat = jsonObject[key][0];
+          let cityLng = jsonObject[key][1];
 
-            var marker = new L.Marker([cityLat, cityLng],{title:key.charAt(0).toUpperCase()+key.slice(1)});
-            marker.addTo(layerGroupMarker);
-          }
+          var marker = new L.Marker([cityLat, cityLng],{title:key.charAt(0).toUpperCase()+key.slice(1)});
+          marker.addTo(layerGroupMarker);
           toggleOn = true
         }
       }
@@ -203,7 +189,7 @@
     }
 
 
-    /*SET CIRCLES BY CATEGORIES*/
+    /*LAV GRUPPE AF LAG FOR HVER KATEGORI*/
     var layerGroupDrugs = L.layerGroup().addTo(mymap);
     var layerGroupDriving = L.layerGroup().addTo(mymap);
     var layerGroupLethal = L.layerGroup().addTo(mymap);
@@ -212,9 +198,11 @@
     var layerGroupOther = L.layerGroup().addTo(mymap);
     var layerGroupAll = L.layerGroup().addTo(mymap);
 
-
+    /*RÆKKEFØLGE AF LAG*/
     var orderArray = ['drugs','driving','lethal','violence','stealing','other','all'];
-    var checked = {
+    
+    /* HVER KATEGORI HAR BESTEMTE <ATTRIBUTES> */
+    var checked = { // Checkbox: markeret eller ej
       'drugs': false,
       'driving' : false,
       'lethal': false,
@@ -223,7 +211,7 @@
       'other': false,
       'all': false,
     }
-    var crimeIndex = {
+    var crimeIndex = { // Index i JSON
       'drugs': 4,
       'driving' : 5,
       'lethal': 6,
@@ -232,7 +220,7 @@
       'other': 9,
       'all': 3,
     }
-    var categoryColor = {
+    var categoryColor = { // Farve for hver kategori
       'drugs': 'blue',
       'driving' : 'orange',
       'lethal': 'black',
@@ -241,7 +229,7 @@
       'other': 'green',
       'all': 'purple'
     };
-    var categoryLayerGroup = {
+    var categoryLayerGroup = { // LayerGroup
       'drugs': layerGroupDrugs,
       'driving' : layerGroupDriving,
       'lethal': layerGroupLethal,
@@ -253,8 +241,9 @@
 
 
 
-    /*DRAW CIRCLES BY CATEGORY*/
+    /*TEGN CIRKLER FOR HVER KATEGORI*/
     function categoryCircles(category){
+      
       /*CHECKBOXES*/
       checked[category] = !checked[category];
       if (category != 'all') {
@@ -269,12 +258,11 @@
           }
         }
 
-        console.log(checked['all']);
-
         for(var i = 1; i <= 6; i++){
           let a = 'category' + i.toString();
           document.getElementById(a).checked = false;
         }
+
         layerGroupDrugs.clearLayers();
         layerGroupDriving.clearLayers();
         layerGroupLethal.clearLayers();
@@ -283,7 +271,7 @@
         layerGroupOther.clearLayers();
       }
 
-      /*LAYERING ORDER*/
+      /*RÆKKEFØLGE AF LAG/CIRKLER */
       if (checked[category]) {
         if (orderArray.indexOf(category) > 0) {
             orderArray.splice(orderArray.indexOf(category), 1);
@@ -295,7 +283,7 @@
       }
       console.log(orderArray);
       
-      /*DRAW CIRCLES*/
+      /*TEGN CIRKLER*/
       if (checked[category]) {
         for(var key in jsonObject){
           let city = jsonObject[key];
@@ -320,8 +308,6 @@
       }
       else{
         categoryLayerGroup[category].clearLayers();
-
-        //var first = orderArray[0];
         
         for(var key in jsonObject){
           let city = jsonObject[key];
@@ -348,10 +334,7 @@
       }
     }
 
-
-
-
-    /*CLEAR ALL CIRCLES*/
+    /*RESET TIL DEFAULT SETTING*/
     function clearAll(){
       for(var i = 1; i <= 7; i++){
         let a = 'category' + i.toString();
@@ -374,6 +357,7 @@
       document.getElementsByName('browser')[0].value = '';
     }
 
+    /*ÅBNER DATA SVARENDE TIL INPUT*/
     var name;
     function chooseCity(){
       name = document.getElementsByName('browser')[0].value;
@@ -406,7 +390,7 @@
 
       }
 
-      /*CITY SPECIFIC DATA*/
+      /*LAV GRAF FRA BY-DATA*/
       function drawChart(){
         var b = jsonObject[name.toLowerCase()][11];
         var data = google.visualization.arrayToDataTable([
@@ -439,11 +423,7 @@
 
         chart.draw(data, options);
       }
-
-      
-
-
-      
+   
     }
 
 
