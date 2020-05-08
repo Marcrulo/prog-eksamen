@@ -90,7 +90,51 @@
     </div>
     
     <div class="col-1" id="middle" style="visibility: hidden">
-      <div id="chart_div" style="width: 700px; height: 500px;"></div>
+      <div id="chart_div"></div> <!--style="width: 600px; height: 500px;"-->
+      <br>
+      <div id="dataDiv" style='right: 100%'>
+        
+        <div class="row">
+          <div class="col">
+            <b>Cityname</b><br>
+            Average severity<br>
+            <u>Thereof</u>:<br>
+            &nbsp;- <i>Drugs</i><br>
+            &nbsp;- <i>Driving</i><br>
+            &nbsp;- <i>Lethal</i><br>
+            &nbsp;- <i>Violence</i><br>
+            &nbsp;- <i>Stealing</i><br>
+            &nbsp;- <i>Other</i><br>
+            <br>
+            Population<br>
+            Coordinates<br>
+            ImageLink<br>
+            
+          </div>
+          <div class="col">
+            <div id="cityname" style="font-weight: bold"></div>
+            <div id="severity"></div>
+            <div>&nbsp;</div>
+            <div id="drugs"></div>
+            <div id="driving"></div>
+            <div id="lethal"></div>
+            <div id="violence"></div>
+            <div id="stealing"></div>
+            <div id="other"></div>
+            <div>&nbsp;</div>
+            <div id="population"></div>
+            <div id="coordinates"></div>
+            <div >
+              <a target="_blank" id="imagelink"></a>
+            </div>
+            
+
+          </div>
+        </div>
+        
+
+
+      </div>
     </div> 
 
     <div class="col" id="mapid" style="height: 1000px"></div>
@@ -127,7 +171,7 @@
 
     /*GET CITY DATA*/
     var xhReq = new XMLHttpRequest();
-    xhReq.open("GET", 'https://gist.githubusercontent.com/Marcrulo/9b287fde728d4271714103aa09f3cd2e/raw/308607062f1ec6cad1145a34ec85d1d434e5e776/cities.json', false);
+    xhReq.open("GET", 'https://gist.githubusercontent.com/Marcrulo/9b287fde728d4271714103aa09f3cd2e/raw/5cf484c0d4870d2a3ee8fb72ace418c42d714c6a/cities.json', false);
     xhReq.send(null);
     var jsonObject = JSON.parse(xhReq.responseText);
 
@@ -176,6 +220,15 @@
       'stealing': false,
       'other': false,
       'all': false,
+    }
+    var crimeIndex = {
+      'drugs': 4,
+      'driving' : 5,
+      'lethal': 6,
+      'violence': 7,
+      'stealing': 8,
+      'other': 9,
+      'all': 3,
     }
     var categoryColor = {
       'drugs': 'blue',
@@ -228,31 +281,27 @@
         layerGroupOther.clearLayers();
       }
       
-
-
-
       /*DRAW CIRCLES*/
       if (checked[category]) {
         for(var key in jsonObject){
           let city = jsonObject[key];
-          if (category == 'all') {
-            var circle = new L.circle([city[0], city[1]],{
-              color: categoryColor[category],       
-              fillOpacity: 0.06*city[3],   
-              radius: 1000+(city[2]/20),       
-            }).bindTooltip(
-              "Severity: " + city[3].toFixed(2).toString()
-            ).addTo(categoryLayerGroup[category]);
+          var sevSum = 0;
+          for(crime in checked){
+            if (checked[crime]) {
+              sevSum += city[crimeIndex[crime]];
+            }
           }
-          else{
-            var circle = new L.circle([city[0], city[1]],{
-              color: categoryColor[category],       
-              fillOpacity: 0.06*city[4],   
-              radius: 1000+(city[2]/20),       
-            }).bindTooltip(
-              "Severity: " + city[4].toFixed(2).toString()
-            ).addTo(categoryLayerGroup[category]);
-          }
+          var circle = new L.circle([city[0], city[1]],{
+            color: categoryColor[category],       
+            fillOpacity: 0.06*city[4],   
+            radius: 1000+(city[2]/20),       
+          }).bindTooltip(
+
+            "Severity: " + sevSum.toFixed(2).toString()
+
+          
+          ).addTo(categoryLayerGroup[category]);
+          
         }      
       }
       else{
@@ -299,7 +348,22 @@
       mymap.flyTo([jsonObject[name.toLowerCase()][0], +jsonObject[name.toLowerCase()][1] + 0.03], 13, {
         animate: true,
         duration: 1.5
-});
+      });
+
+      document.getElementById('cityname').innerHTML = name;
+      var lc = name.toLowerCase();
+      document.getElementById('severity').innerHTML = jsonObject[lc][3].toFixed(2);
+      document.getElementById('drugs').innerHTML = jsonObject[lc][4].toFixed(2);
+      document.getElementById('driving').innerHTML = jsonObject[lc][5].toFixed(2);
+      document.getElementById('lethal').innerHTML = jsonObject[lc][6].toFixed(2);
+      document.getElementById('violence').innerHTML = jsonObject[lc][7].toFixed(2);
+      document.getElementById('stealing').innerHTML = jsonObject[lc][8].toFixed(2);
+      document.getElementById('other').innerHTML = jsonObject[lc][9].toFixed(2);
+      document.getElementById('population').innerHTML = jsonObject[lc][2];
+      document.getElementById('imagelink').innerHTML = "Link to graph";jsonObject[lc][10];
+      document.getElementById('imagelink').href = jsonObject[lc][10];
+      document.getElementById('coordinates').innerHTML = '(' + jsonObject[lc][0] + ' ; ' + jsonObject[lc][1] + ')';
+
     }
 
     /*CITY SPECIFIC DATA*/
@@ -324,7 +388,10 @@
         title: name,
         hAxis: {title: 'Month', minValue: 0, maxValue: 15},
         vAxis: {title: 'Severity', minValue: 0, maxValue: 15},
-        legend: 'none'
+        legend: 'none',
+        width: 600,
+        height: 400,
+        chartArea: {width: '80%', height: '80%'},
       };
 
       var chart = new google.visualization.ScatterChart(document.getElementById('chart_div'));
