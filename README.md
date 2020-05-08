@@ -61,7 +61,7 @@
 4) Planlægning for plot på kort
 
 # 7/5 logbog
-1) Produkt er færdigt (vi fik lavet MEGET i dag)
+1) Hjemmesiden er halvvejs færdig (funktionalitet)
 
 # 8/5 logbog
-1) Produktet er mere færdigt (Vi har lavet endnu mere i dag end sidst)
+1) Produktet er færdigt

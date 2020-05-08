@@ -1,19 +1,19 @@
-import requests # Make URL requests
+import requests 
 import re
-from bs4 import BeautifulSoup # Filter through fetched HTML-code
+from bs4 import BeautifulSoup 
 
 def line_empty(line):
     return len(line.strip()) < 1
 
-# Search criteria
-fromDate = "2019/4/12" # Year/Month/Day
-toDate = "2020/4/12"   # Year/Month/Day
-page = 11 			   # Page ... pages are done manually due to risks of request limit
+# Søgekriterier
+fromDate = "2019/4/12" # År/Månded/Dag
+toDate = "2020/4/12"   # År/Månded/Dag
+page = 11 			   # Sider vælges manuelt, så vi ikke overskrider "request limit"
 
 URL = "https://politi.dk/doegnrapporter?fromDate={}&toDate={}&newsType=D%C3%B8gnrapporter&page={}&district=Nordsjaellands-Politi".format(fromDate,toDate,page)
 print(URL)
 
-# Find pages based on search criteria
+# Find sider baseret på søgekriterier
 frontPage = requests.get(URL)
 soup = BeautifulSoup(frontPage.content, "html.parser")
 ngCtrl = soup.find('section', {'ng-controller': 'newsListController'})
@@ -21,7 +21,7 @@ urls = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*(),]|(?:%[0-9a-fA-F
 if len(urls) == 0:
 	print("End reached")
 
-# Save page content
+# Gem Sidernes indhold
 for url in urls:	
 	subPage = requests.get(url)
 	bs = BeautifulSoup(subPage.content, "html.parser")
@@ -38,7 +38,3 @@ for url in urls:
 
 	file.close()
 	
-
-# Extract relevant data from content
-
-
