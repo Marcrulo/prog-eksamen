@@ -1,11 +1,31 @@
 # -*- coding: utf-8 -*-
-
 from pandas import DataFrame, read_csv, to_numeric
 import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 import numpy as np
 import json
 from csv_to_json import csv_json
+
+
+def plotGraph():
+	ticks = []
+	for i in range(1,13):
+		ticks.append(monthAverage*i)
+	labels = ['Jan', 'Feb', 'Mar', 'Apr','Maj','Jun','Jul','Aug','Sep','Okt','Nov','Dec']
+
+	plt.figure()
+	plt.axhline(average,0,10000000,color='purple')
+	plt.xticks(ticks, labels,rotation=20)
+
+	plt.title(label=cityNames[z].capitalize())
+	plt.scatter(df['date'], df['severity'], s=50, alpha=0.5, c= kmeans.labels_.astype(float))
+	plt.scatter(centroids[:, 0], centroids[:, 1], c='red', s=50)
+	plt.xlabel("Date")
+	plt.ylabel("Severity")
+
+	plt.savefig("../img/"+cityNames[z]+"_"+str(clus)+".png")
+	plt.close()
+
 
 months = ['januar', 'februar', 'marts','april','maj','juni','juli','august','september','oktober','november','december']
 categories = ["date","driving","drugs","lethal","other","stealing","violence","severity","city"]
@@ -20,15 +40,17 @@ cityNames = ['Ballerup','Gentofte','Lyngby','Smørum','Virum','Holte','Nærum','
 			'Allerød','Birkerød','Fredensborg','Kvistgård','Værløse','Farum','Lynge','Slangerup',
 			'Frederikssund','Jægerspris','Ølstykke','Stenløse','Veksø','Skibby']
 
+
 csv_json()
 with open('../csv/cities.json',encoding='utf-8') as f:
 	data = json.load(f)
 
-for z in range(len(cityNames)):
+dfStatic = read_csv("../csv/crime.csv", sep=";", names=categories)
+for item in categories[1:-1]:
+	dfStatic[item] = dfStatic[item].str.replace('\'','').astype(int)
 
-	df = read_csv("../csv/crime.csv", sep=";", names=categories)
-	for item in categories[1:-1]:
-		df[item] = df[item].str.replace('\'','').astype(int)
+for z in range(len(cityNames)):
+	df = dfStatic
 
 	for i in range(len(df['date'])):
 		for month in months:
@@ -74,21 +96,7 @@ for z in range(len(cityNames)):
 		json.dump(data,f)
 		f.close()
 
-	ticks = []
-	for i in range(1,13):
-		ticks.append(monthAverage*i)
-	labels = ['Jan', 'Feb', 'Mar', 'Apr','Maj','Jun','Jul','Aug','Sep','Okt','Nov','Dec']
+	#plotGraph()
 
-	plt.figure()
-	plt.axhline(average,0,10000000,color='purple')
-	plt.xticks(ticks, labels,rotation=20)
 
-	plt.title(label=cityNames[z].capitalize())
-	plt.scatter(df['date'], df['severity'], s=50, alpha=0.5, c= kmeans.labels_.astype(float))
-	plt.scatter(centroids[:, 0], centroids[:, 1], c='red', s=50)
-	plt.xlabel("Date")
-	plt.ylabel("Severity")
-
-	#plt.savefig("../img/"+cityNames[z]+"_"+str(clus)+".png")
-	plt.close()
 
