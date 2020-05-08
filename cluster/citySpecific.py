@@ -8,7 +8,7 @@ import json
 from csv_to_json import csv_json
 
 months = ['januar', 'februar', 'marts','april','maj','juni','juli','august','september','oktober','november','december']
-categories = ["date","driving","drugs","lethal","other","stealing","violence","severity","sevDriving","sevLethal","sevOther","sevDriving","sevStealing","sevViolence","city"]
+categories = ["date","driving","drugs","lethal","other","stealing","violence","severity","city"]
 
 monthAverage = 100000000000#30.4368499
 
@@ -52,17 +52,19 @@ for z in range(len(cityNames)):
 	a = data[cityNames[z].lower()] 
 	a.append(average)
 	#categories 1-6 [.."driving","drugs","lethal","other","stealing","violence"..]
-	
 	df = df.reset_index()
 	with open('../cluster/weight.json', 'r', encoding='utf8') as weight:
 		wDict = json.load(weight)
+		L_pSum = [0,0,0,0,0,0]
 		for y in range(1,7):
 			pSum = 0
 			for x in range(len(df[categories[y]])):
 				if df.at[x,categories[y]]:
 					pSum+=1
 			pSum *= wDict[categories[y]]
-			a.append(pSum)
+			L_pSum[y-1] = pSum
+		for item in L_pSum:
+			a.append(item/sum(L_pSum) * average)
 
 	imageLink = open('../csv/imgLink.txt', 'r').readlines()
 	a.append(imageLink[z].strip())
