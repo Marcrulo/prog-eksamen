@@ -32,7 +32,7 @@ categories = ["date","driving","drugs","lethal","other","stealing","violence","s
 
 monthAverage = 100000000000#30.4368499
 
-cityNames = ['Ballerup','Gentofte','Lyngby','Smørum','Virum','Holte','Nærum','Dyssegård','Bagsværd',
+cityNames = ['Ballerup','Smørum','Lyngby','Gentofte','Virum','Holte','Nærum','Dyssegård','Bagsværd',
 			'Hellerup','Charlottenlund','Klampenborg','Skodsborg','Vedbæk','Rungsted','Hørsholm',
 			'Kokkedal','Nivå','Helsingør','Humlebæk','Espergærde','Snekkersten','Tikøb','Hornbæk',
 			'Dronningmølle','Ålsgårde','Hellebæk','Helsinge','Vejby','Tisvildeleje','Græsted','Gilleleje',
@@ -71,14 +71,14 @@ for z in range(len(cityNames)):
 		averageList.append(item[1])
 	average = sum(averageList)/12
 	
-	a = data[cityNames[z].lower()] 
+	a = data[cityNames[z].lower()]
 	a.append(average)
-	#categories 1-6 [.."driving","drugs","lethal","other","stealing","violence"..]
+	
 	df = df.reset_index()
 	with open('../cluster/weight.json', 'r', encoding='utf8') as weight:
 		wDict = json.load(weight)
 		L_pSum = [0,0,0,0,0,0]
-		for y in range(1,7):
+		for y in range(1,7):  #categories 1-6 [.."driving","drugs","lethal","other","stealing","violence"..]
 			pSum = 0
 			for x in range(len(df[categories[y]])):
 				if df.at[x,categories[y]]:
@@ -90,7 +90,7 @@ for z in range(len(cityNames)):
 
 	imageLink = open('../csv/imgLink.txt', 'r').readlines()
 	a.append(imageLink[z].strip())
-	data[cityNames[z]] = a    
+	data[cityNames[z].lower()] = a
 
 	with open('../csv/cities.json', 'w',encoding='utf-8') as f:
 		json.dump(data,f)
