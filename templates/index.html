@@ -83,7 +83,7 @@
 
       <div style="margin-top: 100%">
         <button type="button" class="btn btn-info" onclick="toggleMarker()">Toggle Markers</button>
-        <button type="button" class="btn btn-warning" onclick="clearCircles()">Clear Circles</button>
+        <button type="button" class="btn btn-warning" onclick="clearAll()">Reset</button>
       </div>
 
 
@@ -157,9 +157,6 @@
         toggleOn = false;
       }
     }
-
-    /*GOOGLE CHART*/
-    
 
 
     /*SET CIRCLES BY CATEGORIES*/
@@ -267,7 +264,7 @@
 
 
     /*CLEAR ALL CIRCLES*/
-    function clearCircles(){
+    function clearAll(){
       for(var i = 1; i <= 7; i++){
         let a = 'category' + i.toString();
         document.getElementById(a).checked = false;
@@ -282,31 +279,30 @@
       layerGroupStealing.clearLayers();
       layerGroupOther.clearLayers();
       layerGroupAll.clearLayers();
+
+      document.getElementById("middle").className = "col-1";
+      document.getElementById("middle").style.visibility = "hidden";
+      mymap.setView([55.805367, 12.3620975], 10);
+      document.getElementsByName('browser')[0].value = '';
     }
 
+    var name;
     function chooseCity(){
-      var name = document.getElementsByName('browser')[0].value;
-      
-
+      name = document.getElementsByName('browser')[0].value;
 
       /*RESIZE MAP*/
-      if (!minimized) {
-        document.getElementById("middle").className = "col-4";
-        document.getElementById("middle").style.visibility = "visible";
-        minimized = true;
-      }
-      else{
-        document.getElementById("middle").className = "col-1";
-        document.getElementById("middle").style.visibility = "hidden";
-        minimized = false;
-      }
+      document.getElementById("middle").className = "col-4";
+      document.getElementById("middle").style.visibility = "visible";
 
       google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
+      mymap.flyTo([jsonObject[name.toLowerCase()][0], +jsonObject[name.toLowerCase()][1] + 0.03], 13, {
+        animate: true,
+        duration: 1.5
+});
     }
 
     /*CITY SPECIFIC DATA*/
-    var minimized = false;
     function drawChart(){
       var data = google.visualization.arrayToDataTable([
         ['Month', 'Severity'],
@@ -326,19 +322,20 @@
 
       var options = {
         title: name,
-        hAxis: {title: 'Age', minValue: 0, maxValue: 15},
-        vAxis: {title: 'Weight', minValue: 0, maxValue: 15},
+        hAxis: {title: 'Month', minValue: 0, maxValue: 15},
+        vAxis: {title: 'Severity', minValue: 0, maxValue: 15},
         legend: 'none'
       };
 
       var chart = new google.visualization.ScatterChart(document.getElementById('chart_div'));
 
       chart.draw(data, options);
+
+
+      
     }
 
-    function resetCityView(){
 
-    }
 
 
 
