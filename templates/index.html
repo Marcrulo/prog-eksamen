@@ -171,7 +171,7 @@
 
     /*GET CITY DATA*/
     var xhReq = new XMLHttpRequest();
-    xhReq.open("GET", 'https://gist.githubusercontent.com/Marcrulo/9b287fde728d4271714103aa09f3cd2e/raw/5cf484c0d4870d2a3ee8fb72ace418c42d714c6a/cities.json', false);
+    xhReq.open("GET", 'https://gist.githubusercontent.com/Marcrulo/9b287fde728d4271714103aa09f3cd2e/raw/ff534b27e406d26e72e902c0a89eea8f8dfb1c1c/cities.json', false);
     xhReq.send(null);
     var jsonObject = JSON.parse(xhReq.responseText);
 
@@ -212,6 +212,8 @@
     var layerGroupOther = L.layerGroup().addTo(mymap);
     var layerGroupAll = L.layerGroup().addTo(mymap);
 
+
+    var orderArray = ['drugs','driving','lethal','violence','stealing','other','all'];
     var checked = {
       'drugs': false,
       'driving' : false,
@@ -252,7 +254,6 @@
 
 
     /*DRAW CIRCLES BY CATEGORY*/
-    var 
     function categoryCircles(category){
       /*CHECKBOXES*/
       checked[category] = !checked[category];
@@ -281,6 +282,18 @@
         layerGroupStealing.clearLayers();
         layerGroupOther.clearLayers();
       }
+
+      /*LAYERING ORDER*/
+      if (checked[category]) {
+        if (orderArray.indexOf(category) > 0) {
+            orderArray.splice(orderArray.indexOf(category), 1);
+            orderArray.unshift(category);
+        }
+      }
+      else{
+        orderArray.push(orderArray.splice(orderArray.indexOf(category),1)[0]);
+      }
+      console.log(orderArray);
       
       /*DRAW CIRCLES*/
       if (checked[category]) {
@@ -307,6 +320,31 @@
       }
       else{
         categoryLayerGroup[category].clearLayers();
+
+        //var first = orderArray[0];
+        
+        for(var key in jsonObject){
+          let city = jsonObject[key];
+          var sevSum = 0;
+          for(crime in checked){
+            if (checked[crime]) {
+              sevSum += city[crimeIndex[crime]];
+            }
+          }
+          var circle = new L.circle([city[0], city[1]],{
+            color: 0,       
+            fillOpacity: 0.,   
+            radius: 1000+(city[2]/20),       
+          }).bindTooltip(
+
+            "Severity: " + sevSum.toFixed(2).toString()
+
+          
+          ).addTo(categoryLayerGroup[category]);
+          
+        }   
+
+
       }
     }
 
@@ -369,20 +407,21 @@
 
     /*CITY SPECIFIC DATA*/
     function drawChart(){
+      var b = jsonObject[name.toLowerCase()][11];
       var data = google.visualization.arrayToDataTable([
         ['Month', 'Severity'],
-        [ 'Jan',      12],
-        [ 'Feb',      5.5],
-        [ 'Mar',     14],
-        [ 'Apr',      5],
-        [ 'May',      3.5],
-        [ 'Jun',    7],
-        [ 'Jul',    7],
-        [ 'Aug',    7],
-        [ 'Sep',    7],
-        [ 'Oct',    7],
-        [ 'Nov',    7],
-        [ 'Dec',    7],
+        [ 'Jan',      b[0]],
+        [ 'Feb',      b[1]],
+        [ 'Mar',     b[2]],
+        [ 'Apr',      b[3]],
+        [ 'May',      b[4]],
+        [ 'Jun',    b[5]],
+        [ 'Jul',    b[6]],
+        [ 'Aug',    b[7]],
+        [ 'Sep',    b[8]],
+        [ 'Oct',    b[9]],
+        [ 'Nov',    b[10]],
+        [ 'Dec',    b[11]],
       ]);
 
       var options = {
@@ -404,22 +443,8 @@
     }
 
 
-
-
-
-
-
-
-
   </script>
 
 </body>
-
-
-
-
-
-
-
 
 </html>
