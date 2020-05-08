@@ -1,11 +1,9 @@
-
-
 import csv, json
 
 def csv_json():
 	outputDict = {}
 
-	with open('../csv/regionsopdelt_postnummer.csv', 'r') as csvfile:
+	with open('../data_files/regionsopdelt_postnummer.csv', 'r') as csvfile:
 		reader = csv.reader(csvfile, delimiter=';')
 		next(reader)
 		for row in reader:
@@ -14,7 +12,7 @@ def csv_json():
 
 
 
-	with open ("../csv/cities.json","w", encoding='utf8') as out:
+	with open ("../data_files/cities.json","w", encoding='utf8') as out:
 		json.dump(outputDict,out, ensure_ascii=False)
 
 	print(outputDict)

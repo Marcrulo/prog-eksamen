@@ -3,7 +3,7 @@ import glob
 import json
 
 
-csvfile = open('crime.csv', "w", encoding='utf-8',newline="")
+csvfile = open('../data_files/crime.csv', "w", encoding='utf-8',newline="")
 writer = csv.writer(csvfile, delimiter=';', quotechar="'", quoting=csv.QUOTE_ALL)
 files = glob.glob("../page_content/*.txt")
 
@@ -85,7 +85,7 @@ for file in files: # Files in PAGE_CONTENT
 
 			id = file.replace('../page_content\\','') + '#' + str(points['index'])
 
-			with open('../cluster/weight.json', 'r', encoding='utf8') as weight:
+			with open('../data_files/weight.json', 'r', encoding='utf8') as weight:
 				wDict = json.load(weight)
 				categoryList = ['driving','drugs','lethal','other','stealing','violence']
 				pList = [points['driving'],points['drugs'],points['lethal'],points['other'],points['stealing'],points['violence']]

@@ -42,10 +42,10 @@ cityNames = ['Ballerup','Smørum','Lyngby','Gentofte','Virum','Holte','Nærum','
 
 
 csv_json()
-with open('../csv/cities.json',encoding='utf-8') as f:
+with open('../data_files/cities.json',encoding='utf-8') as f:
 	data = json.load(f)
 
-dfStatic = read_csv("../csv/crime.csv", sep=";", names=categories)
+dfStatic = read_csv("../data_files/crime.csv", sep=";", names=categories)
 for item in categories[1:-1]:
 	dfStatic[item] = dfStatic[item].str.replace('\'','').astype(int)
 
@@ -75,7 +75,7 @@ for z in range(len(cityNames)):
 	a.append(average)
 	
 	df = df.reset_index()
-	with open('../cluster/weight.json', 'r', encoding='utf8') as weight:
+	with open('../data_files/weight.json', 'r', encoding='utf8') as weight:
 		wDict = json.load(weight)
 		L_pSum = [0,0,0,0,0,0]
 		for y in range(1,7):  #categories 1-6 [.."driving","drugs","lethal","other","stealing","violence"..]
@@ -88,7 +88,7 @@ for z in range(len(cityNames)):
 		for item in L_pSum:
 			a.append(item/sum(L_pSum) * average)
 
-	imageLink = open('../csv/imgLink.txt', 'r').readlines()
+	imageLink = open('../data_files/imgLink.txt', 'r').readlines()
 	a.append(imageLink[z].strip())
 	data[cityNames[z].lower()] = a
 
@@ -99,11 +99,9 @@ for z in range(len(cityNames)):
 	a.append(y_values)
 
 
-	with open('../csv/cities.json', 'w',encoding='utf-8') as f:
+	with open('../data_files/cities.json', 'w',encoding='utf-8') as f:
 		json.dump(data,f)
 		f.close()
 
 	#plotGraph()
-
-
 
