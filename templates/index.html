@@ -225,7 +225,7 @@
       'driving' : 'orange',
       'lethal': 'black',
       'violence': 'red',
-      'stealing': 'white',
+      'stealing': '#40E0D0',
       'other': 'green',
       'all': 'purple'
     };
@@ -295,7 +295,7 @@
           }
           var circle = new L.circle([city[0], city[1]],{
             color: categoryColor[category],       
-            fillOpacity: 0.1*city[4],   
+            fillOpacity: 0.1*city[crimeIndex[category]],   
             radius: 1000+(city[2]/20),       
           }).bindTooltip(
 
